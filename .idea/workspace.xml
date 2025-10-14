@@ -4,19 +4,14 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="3edf6239-8f63-4d53-90b2-2836f7cd82fa" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/cropdoc-trainer.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/cropdoc-trainer.iml" afterDir="false" />
+    <list default="true" id="3edf6239-8f63-4d53-90b2-2836f7cd82fa" name="Changes" comment="build datasets and train(v1)">
+      <change afterPath="$PROJECT_DIR$/src/inspect231.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/inspect_packs.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/requirements.txt" beforeDir="false" afterPath="$PROJECT_DIR$/requirements.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/check_counts.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/check_counts.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/cropdoc/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/cropdoc/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/build_dataset.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/build_dataset.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/cropdoc/__main__.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/cropdoc/__main__.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/cropdoc/build_rape_dataset.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/cropdoc/build_wfd_dataset.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/cropdoc/infer_rape.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/cropdoc/main.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/cropdoc/train_rape.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/cropdoc/viz_rape.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/cropdoc/train.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/cropdoc/train.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/test.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -54,25 +49,29 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;Python.build rzepak.executor&quot;: &quot;Run&quot;,
-    &quot;Python.build.executor&quot;: &quot;Run&quot;,
-    &quot;Python.cropdoc.executor&quot;: &quot;Run&quot;,
-    &quot;Python.train.executor&quot;: &quot;Run&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/wojci/source/repos/repos/cropdoc-trainer&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Python.build rzepak.executor": "Run",
+    "Python.build.executor": "Run",
+    "Python.build_datasets.executor": "Run",
+    "Python.cropdoc.executor": "Run",
+    "Python.inspect.executor": "Run",
+    "Python.test models.executor": "Run",
+    "Python.train rapeseed.executor": "Run",
+    "Python.train.executor": "Run",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "git-widget-placeholder": "master",
+    "last_opened_file_path": "C:/Users/wojci/source/repos/repos/cropdoc-trainer/src/build_dataset.py",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
-  <component name="RunManager" selected="Python.train rapeseed">
+}]]></component>
+  <component name="RunManager" selected="Python.build_datasets">
     <configuration name="build rzepak" type="PythonConfigurationType" factoryName="Python">
       <module name="cropdoc-trainer" />
       <option name="ENV_FILES" value="" />
@@ -89,10 +88,34 @@
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
       <option name="SCRIPT_NAME" value="cropdoc" />
-      <option name="PARAMETERS" value="build rapeseed_rom --root D:\inzynierka\Datasety\Rzepak\dataverse_files\B.napus_Rom --out data_merged\rapeseed --prefix rapeseed --tiers both --use_muro mixed --keep Alt,Mac,Cyl,Myc,Pse,Xan" />
+      <option name="PARAMETERS" value="build --src D:\inzynierka\Datasety\Rzepak\dataverse_files\B.napus_Rom --out D:\inzynierka\Datasety_do_treningu --imgsz 256 --splits train,val" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
       <option name="MODULE_MODE" value="true" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="build_datasets" type="PythonConfigurationType" factoryName="Python">
+      <module name="cropdoc-trainer" />
+      <option name="ENV_FILES" value="" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="SDK_NAME" value="Python 3.11 (cropdoc-trainer)" />
+      <option name="WORKING_DIRECTORY" value="" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/src/build_dataset.py" />
+      <option name="PARAMETERS" value="--src D:\inzynierka\Datasety\Rzepak\dataverse_files\B.napus_Rom --out D:\inzynierka\Datasety_do_treningu\rapeseed" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
       <option name="REDIRECT_INPUT" value="false" />
       <option name="INPUT_FILE" value="" />
       <method v="2" />
@@ -121,6 +144,54 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
+    <configuration name="inspect" type="PythonConfigurationType" factoryName="Python">
+      <module name="cropdoc-trainer" />
+      <option name="ENV_FILES" value="" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="SDK_NAME" value="Python 3.11 (cropdoc-trainer)" />
+      <option name="WORKING_DIRECTORY" value="" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/src/inspect231.py" />
+      <option name="PARAMETERS" value="--pack_dir &quot;D:\inzynierka\Datasety_do_treningu\rapeseed\cls\train\s000&quot; --show 6 --save_samples tmp_samples" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="test models" type="PythonConfigurationType" factoryName="Python">
+      <module name="cropdoc-trainer" />
+      <option name="ENV_FILES" value="" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="SDK_NAME" value="Python 3.11 (cropdoc-trainer)" />
+      <option name="WORKING_DIRECTORY" value="" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/src/test.py" />
+      <option name="PARAMETERS" value="--ckpt C:\Users\wojci\source\repos\repos\cropdoc-trainer\runs\rzepak_dual\final.pt --image D:\inzynierka\Datasety\Rzepak\dataverse_files\B.napus_Rom\Syl_Lo\Idf13318.jpg" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
     <configuration name="train rapeseed" type="PythonConfigurationType" factoryName="Python">
       <module name="cropdoc-trainer" />
       <option name="ENV_FILES" value="" />
@@ -137,7 +208,7 @@
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
       <option name="SCRIPT_NAME" value="cropdoc" />
-      <option name="PARAMETERS" value="train --data data_merged\rapeseed --out runs/rapeseed_dual --epochs 10 --healthy rapeseed__Syl --ignore_ce rapeseed__Mixed --w_healthy_bin 3.0 --oversample --alpha 1.0 --beta 1.0  --tau_bin 0.70" />
+      <option name="PARAMETERS" value="train --bin D:\inzynierka\Datasety_do_treningu\rapeseed\bin --cls D:\inzynierka\Datasety_do_treningu\rapeseed\cls --out runs\rzepak_dual --workers 0" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
       <option name="MODULE_MODE" value="true" />
@@ -147,8 +218,11 @@
     </configuration>
     <list>
       <item itemvalue="Python.build rzepak" />
+      <item itemvalue="Python.build_datasets" />
       <item itemvalue="Python.cropdoc" />
       <item itemvalue="Python.train rapeseed" />
+      <item itemvalue="Python.test models" />
+      <item itemvalue="Python.inspect" />
     </list>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
@@ -172,17 +246,45 @@
       <workItem from="1759935967774" duration="2240000" />
       <workItem from="1760031257910" duration="2609000" />
       <workItem from="1760104754458" duration="8383000" />
-      <workItem from="1760177712616" duration="2925000" />
+      <workItem from="1760177712616" duration="13670000" />
+      <workItem from="1760267263110" duration="9440000" />
+      <workItem from="1760305207439" duration="47316000" />
     </task>
+    <task id="LOCAL-00001" summary="Add dual mod">
+      <option name="closed" value="true" />
+      <created>1760187655275</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1760187655275</updated>
+    </task>
+    <task id="LOCAL-00002" summary="build datasets and train(v1)">
+      <option name="closed" value="true" />
+      <created>1760437060699</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1760437060700</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
   </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Add dual mod" />
+    <MESSAGE value="build datasets and train(v1)" />
+    <option name="LAST_COMMIT_MESSAGE" value="build datasets and train(v1)" />
+  </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
-    <SUITE FILE_PATH="coverage/cropdoc_trainer$build_rzepak.coverage" NAME="build rzepak Coverage Results" MODIFIED="1760187031078" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="C:\Users\wojci\source\repos\repos\cropdoc-trainer" />
+    <SUITE FILE_PATH="coverage/cropdoc_trainer$inspect.coverage" NAME="inspect Coverage Results" MODIFIED="1760438085140" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
+    <SUITE FILE_PATH="coverage/cropdoc_trainer$build_rzepak.coverage" NAME="build rzepak Coverage Results" MODIFIED="1760303913140" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="C:\Users\wojci\source\repos\repos\cropdoc-trainer" />
+    <SUITE FILE_PATH="coverage/cropdoc_trainer$build_datasets.coverage" NAME="build_datasets Coverage Results" MODIFIED="1760455798667" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
     <SUITE FILE_PATH="coverage/cropdoc_trainer$train.coverage" NAME="train Coverage Results" MODIFIED="1759096359370" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="C:\Users\wojci\source\repos\repos\cropdoc-trainer" />
     <SUITE FILE_PATH="coverage/cropdoc_trainer$cropdoc.coverage" NAME="cropdoc Coverage Results" MODIFIED="1759339886714" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
+    <SUITE FILE_PATH="coverage/cropdoc_trainer$test_models.coverage" NAME="test models Coverage Results" MODIFIED="1760450684656" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
     <SUITE FILE_PATH="coverage/cropdoc_trainer$build.coverage" NAME="build Coverage Results" MODIFIED="1758925123043" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="C:\Users\wojci\source\repos\repos\cropdoc-trainer" />
+    <SUITE FILE_PATH="coverage/cropdoc_trainer$train_rapeseed.coverage" NAME="train rapeseed Coverage Results" MODIFIED="1760445219791" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="C:\Users\wojci\source\repos\repos\cropdoc-trainer" />
   </component>
 </project>

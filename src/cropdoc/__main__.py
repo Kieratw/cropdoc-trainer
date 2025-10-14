@@ -17,7 +17,8 @@ def main():
     p_train.add_argument("--seed", type=int, default=1337)
     p_train.add_argument("--no_compile", action="store_true", help="Force disable torch.compile")
     p_train.add_argument("--device", type=str, default="cuda")
-
+    p_train.add_argument("--bin_undersample_ratio", type=float, default=1.0,
+                        help="During BIN phase, sample diseased so that #diseased ~= ratio * #healthy (default 1.0)")
     args = parser.parse_args()
     if args.cmd == "train":
         return train_run(args)
