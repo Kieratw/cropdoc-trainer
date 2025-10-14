@@ -1,2 +1,2 @@
-__all__=['build','train','infer','viz']
-__version__='0.3.0'
+__all__ = ['train_run']
+from .train import run as train_run
