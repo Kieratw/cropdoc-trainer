@@ -1,0 +1,30 @@
+{
+  "pipeline": {
+    "acc": 0.779197096824646,
+    "n": 548,
+    "classes": [
+      "healthy",
+      "LeafBlight",
+      "Rust",
+      "PowderyMildew",
+      "FusariumFootRot",
+      "WheatBlast",
+      "BlackPoint"
+    ],
+    "metrics": {
+      "healthy_precision": 0.7047619047619048,
+      "healthy_recall": 0.925,
+      "diseases_acc": 0.754273533821106,
+      "diseases_macro_f1": 0.7912786819389676
+    },
+    "bin_threshold": 0.5
+  },
+  "bin_raw": {
+    "acc": 0.9324817657470703,
+    "n": 548
+  },
+  "cls_raw": {
+    "acc": 0.7919707894325256,
+    "n": 548
+  }
+}

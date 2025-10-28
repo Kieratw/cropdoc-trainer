@@ -1,0 +1,33 @@
+{
+  "pipeline": {
+    "acc": 0.9597576856613159,
+    "n": 2311,
+    "classes": [
+      "healthy",
+      "bacterial_spot",
+      "early_blight",
+      "late_blight",
+      "leaf_mold",
+      "mosaic_virus",
+      "septoria_leaf_spot",
+      "spider_mites",
+      "target_spot",
+      "yellow_leaf_curl_virus"
+    ],
+    "metrics": {
+      "healthy_precision": 0.9950980392156863,
+      "healthy_recall": 1.0,
+      "diseases_acc": 0.9558823704719543,
+      "diseases_macro_f1": 0.9455353488397837
+    },
+    "bin_threshold": 0.8
+  },
+  "bin_raw": {
+    "acc": 0.9991346001625061,
+    "n": 2311
+  },
+  "cls_raw": {
+    "acc": 0.9597576856613159,
+    "n": 2311
+  }
+}

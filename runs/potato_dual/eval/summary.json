@@ -1,0 +1,26 @@
+{
+  "pipeline": {
+    "acc": 0.9931464195251465,
+    "n": 1605,
+    "classes": [
+      "healthy",
+      "earlyblight",
+      "lateblight"
+    ],
+    "metrics": {
+      "healthy_precision": 1.0,
+      "healthy_recall": 0.9990176817288802,
+      "diseases_acc": 0.9829642176628113,
+      "diseases_macro_f1": 0.9702738445628829
+    },
+    "bin_threshold": 0.8
+  },
+  "bin_raw": {
+    "acc": 0.9993830919265747,
+    "n": 1621
+  },
+  "cls_raw": {
+    "acc": 0.9938004016876221,
+    "n": 1613
+  }
+}
