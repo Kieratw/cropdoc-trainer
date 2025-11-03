@@ -4,62 +4,17 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="3edf6239-8f63-4d53-90b2-2836f7cd82fa" name="Changes" comment="per-plant builders with leak-free test (SHA1+aHash) + logs">
-      <change afterPath="$PROJECT_DIR$/runs/rzepak_dual/best_bin.pt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/runs/rzepak_dual/confusion_bin_val.csv" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/runs/rzepak_dual/confusion_bin_val.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/runs/rzepak_dual/confusion_bin_val_norm.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/runs/rzepak_dual/confusion_cls_val.csv" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/runs/rzepak_dual/confusion_cls_val.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/runs/rzepak_dual/confusion_cls_val_norm.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/runs/rzepak_dual/eval/confusion_bin_test_raw.csv" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/runs/rzepak_dual/eval/confusion_bin_test_raw.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/runs/rzepak_dual/eval/confusion_cls_test_raw.csv" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/runs/rzepak_dual/eval/confusion_cls_test_raw.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/runs/rzepak_dual/eval/confusion_pipeline.csv" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/runs/rzepak_dual/eval/confusion_pipeline.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/runs/rzepak_dual/eval/confusion_pipeline_norm.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/runs/rzepak_dual/eval/summary.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/runs/rzepak_dual/final.pt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/runs/rzepak_dual/training_history.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/runs/rzepak_dual/training_summary.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/runs/tomato_dual/best_bin.pt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/runs/tomato_dual/confusion_bin_val.csv" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/runs/tomato_dual/confusion_bin_val.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/runs/tomato_dual/confusion_bin_val_norm.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/runs/tomato_dual/confusion_cls_val.csv" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/runs/tomato_dual/confusion_cls_val.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/runs/tomato_dual/confusion_cls_val_norm.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/runs/tomato_dual/eval/confusion_bin_test_raw.csv" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/runs/tomato_dual/eval/confusion_bin_test_raw.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/runs/tomato_dual/eval/confusion_cls_test_raw.csv" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/runs/tomato_dual/eval/confusion_cls_test_raw.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/runs/tomato_dual/eval/confusion_pipeline.csv" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/runs/tomato_dual/eval/confusion_pipeline.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/runs/tomato_dual/eval/confusion_pipeline_norm.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/runs/tomato_dual/eval/summary.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/runs/tomato_dual/final.pt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/runs/tomato_dual/training_history.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/runs/tomato_dual/training_summary.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/runs/wheat_dual/best_bin.pt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/runs/wheat_dual/confusion_bin_val.csv" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/runs/wheat_dual/confusion_bin_val.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/runs/wheat_dual/confusion_bin_val_norm.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/runs/wheat_dual/confusion_cls_val.csv" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/runs/wheat_dual/confusion_cls_val.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/runs/wheat_dual/confusion_cls_val_norm.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/runs/wheat_dual/eval/confusion_bin_test_raw.csv" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/runs/wheat_dual/eval/confusion_bin_test_raw.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/runs/wheat_dual/eval/confusion_cls_test_raw.csv" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/runs/wheat_dual/eval/confusion_cls_test_raw.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/runs/wheat_dual/eval/confusion_pipeline.csv" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/runs/wheat_dual/eval/confusion_pipeline.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/runs/wheat_dual/eval/confusion_pipeline_norm.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/runs/wheat_dual/eval/summary.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/runs/wheat_dual/final.pt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/runs/wheat_dual/training_history.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/runs/wheat_dual/training_summary.png" afterDir="false" />
+    <list default="true" id="3edf6239-8f63-4d53-90b2-2836f7cd82fa" name="Changes" comment="Add training files for tomato potato rapeseed and wheat with bestmodels etc">
+      <change afterPath="$PROJECT_DIR$/src/eval2.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/export_mobile.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/run_build_all_preset.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/train_kd.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/build_dataset.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/build_dataset.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/build_potato.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/build_potato.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/build_rapeseed.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/build_rapeseed.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/build_tomato.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/build_tomato.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/build_wheat.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/build_wheat.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -97,39 +52,41 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;Python.app.executor&quot;: &quot;Run&quot;,
-    &quot;Python.build potato.executor&quot;: &quot;Run&quot;,
-    &quot;Python.build rzepak.executor&quot;: &quot;Run&quot;,
-    &quot;Python.build tomato.executor&quot;: &quot;Run&quot;,
-    &quot;Python.build.executor&quot;: &quot;Run&quot;,
-    &quot;Python.build_datasets.executor&quot;: &quot;Run&quot;,
-    &quot;Python.build_wheat.executor&quot;: &quot;Run&quot;,
-    &quot;Python.cropdoc.executor&quot;: &quot;Run&quot;,
-    &quot;Python.delete.executor&quot;: &quot;Run&quot;,
-    &quot;Python.eval.executor&quot;: &quot;Run&quot;,
-    &quot;Python.inspect.executor&quot;: &quot;Run&quot;,
-    &quot;Python.scan.executor&quot;: &quot;Run&quot;,
-    &quot;Python.test models.executor&quot;: &quot;Run&quot;,
-    &quot;Python.train potato.executor&quot;: &quot;Run&quot;,
-    &quot;Python.train rapeseed.executor&quot;: &quot;Run&quot;,
-    &quot;Python.train tomato.executor&quot;: &quot;Run&quot;,
-    &quot;Python.train wheat.executor&quot;: &quot;Run&quot;,
-    &quot;Python.train.executor&quot;: &quot;Run&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/wojci/source/repos/repos/cropdoc-trainer/src&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;com.intellij.jupyter.core.jupyter.connections.configuration.JupyterServerConfigurable&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Python.app.executor": "Run",
+    "Python.build potato.executor": "Run",
+    "Python.build rzepak.executor": "Run",
+    "Python.build tomato.executor": "Run",
+    "Python.build.executor": "Run",
+    "Python.build_datasets.executor": "Run",
+    "Python.build_wheat.executor": "Run",
+    "Python.cropdoc.executor": "Run",
+    "Python.delete.executor": "Run",
+    "Python.eksport.executor": "Run",
+    "Python.eval.executor": "Run",
+    "Python.inspect.executor": "Run",
+    "Python.scan.executor": "Run",
+    "Python.test models.executor": "Run",
+    "Python.train potato.executor": "Run",
+    "Python.train rapeseed.executor": "Run",
+    "Python.train tomato.executor": "Run",
+    "Python.train wheat.executor": "Run",
+    "Python.train.executor": "Run",
+    "Python.train_kd.executor": "Run",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "git-widget-placeholder": "master",
+    "last_opened_file_path": "C:/Users/wojci/source/repos/repos/cropdoc-trainer/src",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "settings.editor.selected.configurable": "com.intellij.jupyter.core.jupyter.connections.configuration.JupyterServerConfigurable",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\Users\wojci\source\repos\repos\cropdoc-trainer\src" />
@@ -138,7 +95,7 @@
       <recent name="C:\Users\wojci\source\repos\repos\cropdoc-trainer\src" />
     </key>
   </component>
-  <component name="RunManager" selected="Python.eval">
+  <component name="RunManager" selected="Python.train_kd">
     <configuration name="app" type="PythonConfigurationType" factoryName="Python">
       <module name="cropdoc-trainer" />
       <option name="ENV_FILES" value="" />
@@ -204,6 +161,30 @@
       <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
       <option name="SCRIPT_NAME" value="$PROJECT_DIR$/src/build_tomato.py" />
       <option name="PARAMETERS" value="--src D:\inzynierka\Datasety\Pomidor\cross\Cross-validation1 --out D:\inzynierka\Datasety_do_treningu\tomato" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="build" type="PythonConfigurationType" factoryName="Python">
+      <module name="cropdoc-trainer" />
+      <option name="ENV_FILES" value="" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="SDK_NAME" value="Python 3.11 (cropdoc-trainer)" />
+      <option name="WORKING_DIRECTORY" value="" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/src/run_build_all_preset.py" />
+      <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
       <option name="MODULE_MODE" value="false" />
@@ -283,6 +264,30 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
+    <configuration name="eksport" type="PythonConfigurationType" factoryName="Python">
+      <module name="cropdoc-trainer" />
+      <option name="ENV_FILES" value="" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="SDK_NAME" value="Python 3.11 (cropdoc-trainer)" />
+      <option name="WORKING_DIRECTORY" value="" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/src/export_mobile.py" />
+      <option name="PARAMETERS" value="--out-assets android/app/src/main/assets --make-dict --model wheat=runs/wheat_dual/final.pt  --model tomato=runs/tomato_dual/final.pt --model potato=runs/potato_dual/final.pt  --model rapeseed=runs/rzepak_dual/final.pt" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
     <configuration name="eval" type="PythonConfigurationType" factoryName="Python">
       <module name="cropdoc-trainer" />
       <option name="ENV_FILES" value="" />
@@ -298,8 +303,8 @@
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/src/eval.py" />
-      <option name="PARAMETERS" value="--ckpt runs\potato_dual\final.pt   --data_root D:\inzynierka\Datasety_do_treningu\potato\test_images" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/src/eval2.py" />
+      <option name="PARAMETERS" value="--ckpt runs2\wheat_teacher\best.pt   --images D:\inzynierka\Datasety_do_treningu\wheat\test_images\cls  --meta   D:\inzynierka\Datasety_do_treningu\wheat\cls\train\s000\meta.json" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
       <option name="MODULE_MODE" value="false" />
@@ -346,11 +351,11 @@
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
-      <option name="SCRIPT_NAME" value="cropdoc" />
-      <option name="PARAMETERS" value="train --bin D:\inzynierka\Datasety_do_treningu\potato\bin --cls D:\inzynierka\Datasety_do_treningu\potato\cls --out runs\potato_dual --workers 0" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/src/train_kd.py" />
+      <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="true" />
+      <option name="MODULE_MODE" value="false" />
       <option name="REDIRECT_INPUT" value="false" />
       <option name="INPUT_FILE" value="" />
       <method v="2" />
@@ -370,11 +375,11 @@
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
-      <option name="SCRIPT_NAME" value="cropdoc" />
-      <option name="PARAMETERS" value="train --bin D:\inzynierka\Datasety_do_treningu\rapeseed\bin --cls D:\inzynierka\Datasety_do_treningu\rapeseed\cls --out runs\rzepak_dual --workers 0" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/src/train_kd.py" />
+      <option name="PARAMETERS" value="--data &quot;D:\inzynierka\Datasety_do_treningu\wheat&quot; --mode teacher --arch_teacher convnext_tiny  --epochs 50 --batch-size 16 --out runs2\wheat_teacher --workers 0" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="true" />
+      <option name="MODULE_MODE" value="false" />
       <option name="REDIRECT_INPUT" value="false" />
       <option name="INPUT_FILE" value="" />
       <method v="2" />
@@ -427,17 +432,44 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
+    <configuration name="train_kd" type="PythonConfigurationType" factoryName="Python" nameIsGenerated="true">
+      <module name="cropdoc-trainer" />
+      <option name="ENV_FILES" value="" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="SDK_NAME" value="Python 3.11 (cropdoc-trainer)" />
+      <option name="WORKING_DIRECTORY" value="" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/src/train_kd.py" />
+      <option name="PARAMETERS" value="--data D:\inzynierka\Datasety_do_treningu\wheat --mode student --arch_student mobilenetv3_large    --teacher_ckpt runs2\wheat_teacher\best.pt    --epochs 30 --freeze_epochs 5    --batch 24 --workers 0    --lr 1.5e-4 --min_lr 1e-6    --kd_alpha 0.5 --kd_warmup_epochs 5 --kd_temp 3.0    --backbone_lr_scale 0.05    --balance --ema --amp --pretrained  --aug  --out runs2\wheat_student_kd_v2" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
     <list>
       <item itemvalue="Python.app" />
       <item itemvalue="Python.build potato" />
       <item itemvalue="Python.build tomato" />
+      <item itemvalue="Python.build" />
       <item itemvalue="Python.build_datasets" />
       <item itemvalue="Python.build_wheat" />
+      <item itemvalue="Python.delete" />
+      <item itemvalue="Python.eksport" />
       <item itemvalue="Python.eval" />
       <item itemvalue="Python.scan" />
-      <item itemvalue="Python.delete" />
       <item itemvalue="Python.train potato" />
       <item itemvalue="Python.train rapeseed" />
+      <item itemvalue="Python.train_kd" />
       <item itemvalue="Python.train tomato" />
       <item itemvalue="Python.train wheat" />
     </list>
@@ -486,7 +518,12 @@
       <workItem from="1761512795303" duration="7153000" />
       <workItem from="1761555541523" duration="4536000" />
       <workItem from="1761592226458" duration="1512000" />
-      <workItem from="1761597572087" duration="10901000" />
+      <workItem from="1761597572087" duration="11470000" />
+      <workItem from="1761771954148" duration="79000" />
+      <workItem from="1761844830072" duration="11439000" />
+      <workItem from="1761895991258" duration="15000" />
+      <workItem from="1762014424711" duration="8420000" />
+      <workItem from="1762035274079" duration="25534000" />
     </task>
     <task id="LOCAL-00001" summary="Add dual mod">
       <option name="closed" value="true" />
@@ -528,7 +565,15 @@
       <option name="project" value="LOCAL" />
       <updated>1761604791245</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="Add training files for tomato potato rapeseed and wheat with bestmodels etc">
+      <option name="closed" value="true" />
+      <created>1761643786254</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1761643786254</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -551,7 +596,8 @@
     <MESSAGE value="build datasets v2" />
     <MESSAGE value="build datasets v3" />
     <MESSAGE value="per-plant builders with leak-free test (SHA1+aHash) + logs" />
-    <option name="LAST_COMMIT_MESSAGE" value="per-plant builders with leak-free test (SHA1+aHash) + logs" />
+    <MESSAGE value="Add training files for tomato potato rapeseed and wheat with bestmodels etc" />
+    <option name="LAST_COMMIT_MESSAGE" value="Add training files for tomato potato rapeseed and wheat with bestmodels etc" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/cropdoc_trainer$inspect.coverage" NAME="inspect Coverage Results" MODIFIED="1760438085140" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
@@ -562,15 +608,17 @@
     <SUITE FILE_PATH="coverage/cropdoc_trainer$app.coverage" NAME="app Coverage Results" MODIFIED="1760873690511" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
     <SUITE FILE_PATH="coverage/cropdoc_trainer$delete.coverage" NAME="delete Coverage Results" MODIFIED="1761457990709" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
     <SUITE FILE_PATH="coverage/cropdoc_trainer$build_potato.coverage" NAME="build potato Coverage Results" MODIFIED="1761597634993" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
-    <SUITE FILE_PATH="coverage/cropdoc_trainer$build.coverage" NAME="build Coverage Results" MODIFIED="1758925123043" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="C:\Users\wojci\source\repos\repos\cropdoc-trainer" />
     <SUITE FILE_PATH="coverage/cropdoc_trainer$scan.coverage" NAME="scan Coverage Results" MODIFIED="1761455935486" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
+    <SUITE FILE_PATH="coverage/cropdoc_trainer$build.coverage" NAME="build Coverage Results" MODIFIED="1762022810413" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
     <SUITE FILE_PATH="coverage/cropdoc_trainer$build_wheat.coverage" NAME="build_wheat Coverage Results" MODIFIED="1761489153117" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
+    <SUITE FILE_PATH="coverage/cropdoc_trainer$train_kd.coverage" NAME="train_kd Coverage Results" MODIFIED="1762118200153" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
     <SUITE FILE_PATH="coverage/cropdoc_trainer$train.coverage" NAME="train Coverage Results" MODIFIED="1759096359370" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="C:\Users\wojci\source\repos\repos\cropdoc-trainer" />
     <SUITE FILE_PATH="coverage/cropdoc_trainer$build_tomato.coverage" NAME="build tomato Coverage Results" MODIFIED="1761597640771" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
     <SUITE FILE_PATH="coverage/cropdoc_trainer$train_potato.coverage" NAME="train potato Coverage Results" MODIFIED="1761604613412" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
     <SUITE FILE_PATH="coverage/cropdoc_trainer$train_wheat.coverage" NAME="train wheat Coverage Results" MODIFIED="1761492367373" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
-    <SUITE FILE_PATH="coverage/cropdoc_trainer$eval.coverage" NAME="eval Coverage Results" MODIFIED="1761600724606" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
+    <SUITE FILE_PATH="coverage/cropdoc_trainer$eval.coverage" NAME="eval Coverage Results" MODIFIED="1762117246425" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
     <SUITE FILE_PATH="coverage/cropdoc_trainer$test_models.coverage" NAME="test models Coverage Results" MODIFIED="1760450684656" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
-    <SUITE FILE_PATH="coverage/cropdoc_trainer$train_rapeseed.coverage" NAME="train rapeseed Coverage Results" MODIFIED="1761520744300" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="C:\Users\wojci\source\repos\repos\cropdoc-trainer" />
+    <SUITE FILE_PATH="coverage/cropdoc_trainer$eksport.coverage" NAME="eksport Coverage Results" MODIFIED="1761845877096" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
+    <SUITE FILE_PATH="coverage/cropdoc_trainer$train_rapeseed.coverage" NAME="train rapeseed Coverage Results" MODIFIED="1762101567717" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="C:\Users\wojci\source\repos\repos\cropdoc-trainer" />
   </component>
 </project>

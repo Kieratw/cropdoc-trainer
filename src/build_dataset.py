@@ -1,438 +1,243 @@
-# make_dataset.py — buduje równolegle: packs/cls/* oraz packs/bin/* oraz kopiuje testowe JPEG/PNG obok
-import argparse, json, random, time, re, shutil
+import argparse, json, random, re, io, csv, hashlib, shutil
 from pathlib import Path
-from typing import List, Tuple, Dict
+from typing import List, Tuple, Dict, Optional
 import numpy as np
-from PIL import Image, ImageOps, ImageEnhance
+from PIL import Image, ImageFile, ImageEnhance
 from tqdm import tqdm
-from PIL import ImageFile
 ImageFile.LOAD_TRUNCATED_IMAGES = True
 
-# ===== Domyślne =====
-IMG_SIZE   = 256
-VAL_RATIO  = 0.15
+IMG_EXTS = {".jpg",".jpeg",".png",".webp",".bmp",".tif",".tiff"}
+IMG_SIZE = 380
+VAL_RATIO = 0.15
 TEST_RATIO = 0.10
-SEED       = 42
-AUG_MULT   = 2                 # augmenty tylko dla TRAIN; 0 = brak
-IMG_EXTS   = {".jpg",".jpeg",".png",".bmp",".webp",".tif",".tiff"}
+SEED = 42
+HASH_THRESHOLD = 3
+AUG_MULT = 0
 
-# ===== Utils =====
-def banner(txt): print("\n" + "="*8 + " " + txt + " " + "="*8)
+def _read_bytes_for_hash(p: Path):
+    try:
+        return p.read_bytes()
+    except Exception:
+        try:
+            with Image.open(p) as im:
+                im = im.convert("RGB")
+                buf = io.BytesIO()
+                im.save(buf, format="JPEG", quality=95)
+                return buf.getvalue()
+        except Exception:
+            return None
 
-def has_images(p: Path) -> bool:
-    return any(pp.is_file() and pp.suffix.lower() in IMG_EXTS for pp in p.rglob("*"))
+def _sha1(p: Path):
+    b = _read_bytes_for_hash(p)
+    return hashlib.sha1(b).hexdigest() if b is not None else None
 
-def load_img_square(path: Path, size: int) -> np.ndarray | None:
+def _ahash64(p: Path, size: int = 8):
+    try:
+        with Image.open(p) as im:
+            im = im.convert("L").resize((size, size), Image.BICUBIC)
+            a = np.asarray(im, dtype=np.float32); m = a.mean()
+            bits = (a >= m).astype("uint8").flatten()
+            out = 0
+            for b in bits: out = (out << 1) | int(b)
+            return int(out)
+    except Exception:
+        return None
+
+def _ham64(a: int, b: int) -> int:
+    return int(bin((a ^ b) & ((1<<64)-1)).count("1"))
+
+class DedupGuard:
+    def __init__(self, threshold: int = HASH_THRESHOLD, within_test: bool = True, log_csv: Optional[Path] = None):
+        self.th = int(threshold); self.within = bool(within_test); self.log_csv = log_csv
+        self.idx_sha = set(); self.idx_ph = []
+    def add_pairs(self, pairs: List[Tuple[Path,str]]):
+        for p,_ in pairs:
+            p = Path(p)
+            if not p.exists(): continue
+            s = _sha1(p); h = _ahash64(p)
+            if s: self.idx_sha.add(s)
+            if h is not None: self.idx_ph.append(h)
+    def filter_test(self, test_pairs: List[Tuple[Path,str]]):
+        kept, removed = [], []
+        for p, c in test_pairs:
+            pp = Path(p)
+            if not pp.exists(): removed.append((p,c,"missing")); continue
+            s = _sha1(pp); h = _ahash64(pp)
+            if s and s in self.idx_sha: removed.append((p,c,"bytes_equal(train/val)")); continue
+            if h is not None and any(_ham64(h, r) <= self.th for r in self.idx_ph):
+                removed.append((p,c,f"near_dup(train/val)_ham<={self.th}")); continue
+            kept.append((p,c))
+        if self.within and kept:
+            seen_s, seen_h = set(), []
+            out = []
+            for p,c in kept:
+                s = _sha1(Path(p)); h = _ahash64(Path(p))
+                if s and s in seen_s: removed.append((p,c,"dup_within_test_bytes")); continue
+                if h is not None and any(_ham64(h, r) <= self.th for r in seen_h):
+                    removed.append((p,c,f"near_dup_within_test_ham<={self.th}")); continue
+                if s: seen_s.add(s)
+                if h is not None: seen_h.append(h)
+                out.append((p,c))
+            kept = out
+        if self.log_csv:
+            self.log_csv.parent.mkdir(parents=True, exist_ok=True)
+            import csv as _csv
+            with open(self.log_csv, "w", encoding="utf-8", newline="") as f:
+                w = _csv.writer(f); w.writerow(["path","class","action","reason"])
+                for p,c in kept: w.writerow([str(p), c, "keep", ""])
+                for p,c,r in removed: w.writerow([str(p), c, "drop", r])
+        return kept, removed
+
+def is_image(p: Path) -> bool:
+    return p.is_file() and p.suffix.lower() in IMG_EXTS
+
+def load_img_square(path: Path, size: int) -> Optional[np.ndarray]:
     try:
         with Image.open(path) as im:
             im = im.convert("RGB")
-            w, h = im.size
-            if w < h:  nw, nh = size, int(round(h * size / w))
-            else:      nh, nw = size, int(round(w * size / h))
-            im = im.resize((nw, nh), Image.BICUBIC)
-            l = (nw - size) // 2; t = (nh - size) // 2
-            im = im.crop((l, t, l + size, t + size))
+            w,h = im.size
+            if w < h: nw,nh=size,int(round(h*size/w))
+            else:     nh,nw=size,int(round(w*size/h))
+            im = im.resize((nw,nh), Image.BICUBIC)
+            l=(nw-size)//2; t=(nh-size)//2
+            im = im.crop((l,t,l+size,t+size))
             arr = np.asarray(im, dtype=np.uint8)  # HWC
-            return np.transpose(arr, (2,0,1))     # CHW
+            return np.transpose(arr,(2,0,1))      # CHW
     except Exception:
-        # uszkodzony / nieobraz / dziwne rozszerzenie udające jpg → pomiń
         return None
 
-def aug_image(arr: np.ndarray, rng: random.Random) -> np.ndarray:
-    img = Image.fromarray(np.transpose(arr, (1,2,0)))
-    if rng.random() < 0.5: img = ImageOps.mirror(img)
-    if rng.random() < 0.2: img = ImageOps.flip(img)
-    if rng.random() < 0.6:
-        img = img.rotate(rng.uniform(-10,10), resample=Image.BICUBIC, expand=False, fillcolor=(0,0,0))
-    if rng.random() < 0.6: img = ImageEnhance.Brightness(img).enhance(rng.uniform(0.9,1.1))
-    if rng.random() < 0.6: img = ImageEnhance.Contrast(img).enhance(rng.uniform(0.9,1.1))
-    if rng.random() < 0.6: img = ImageEnhance.Color(img).enhance(rng.uniform(0.9,1.1))
-    out = np.asarray(img, dtype=np.uint8)
-    return np.transpose(out, (2,0,1))
+def to_records(pairs: List[Tuple[Path,str]], classes: List[str], aug_mult: int, seed: int, split_name: str):
+    rng = random.Random(seed); c2i = {c:i for i,c in enumerate(classes)}; out = []
+    pbar = tqdm(total=len(pairs)*(1+max(0,aug_mult)), desc=f"build {split_name}", unit="img")
+    for p,c in pairs:
+        arr = load_img_square(p, IMG_SIZE)
+        if arr is None: pbar.update(1); continue
+        y = c2i[c]; out.append((arr,y)); pbar.update(1)
+        for _ in range(max(0,aug_mult)):
+            img = Image.fromarray(np.transpose(arr,(1,2,0)))
+            if rng.random()<0.6: img = img.rotate(rng.uniform(-10,10), resample=Image.BICUBIC, expand=False, fillcolor=(0,0,0))
+            if rng.random()<0.5: img = ImageEnhance.Brightness(img).enhance(rng.uniform(0.9,1.1))
+            if rng.random()<0.5: img = ImageEnhance.Contrast(img).enhance(rng.uniform(0.9,1.1))
+            if rng.random()<0.5: img = ImageEnhance.Color(img).enhance(rng.uniform(0.9,1.1))
+            aug = np.asarray(img, dtype=np.uint8); aug = np.transpose(aug,(2,0,1))
+            out.append((aug,y)); pbar.update(1)
+    pbar.close(); return out
 
-def write_pack(out_dir: Path, split: str, records: List[Tuple[np.ndarray,int]], classes: List[str]):
+def write_pack(out_dir: Path, split: str, records, classes: List[str]):
     out_dir.mkdir(parents=True, exist_ok=True)
     if not records:
-        print(f"[{split}] brak próbek, pomijam")
-        return
-    C,H,W = records[0][0].shape
-    N = len(records)
-    part = out_dir / "s000"
-    part.mkdir(parents=True, exist_ok=True)
-    mm = np.memmap(part/"images.dat", dtype=np.uint8, mode="w+", shape=(N,C,H,W))
+        print(f"[{split}] brak próbek → pomijam"); return
+    C,H,W = records[0][0].shape; N = len(records)
+    shard = out_dir/"s000"; shard.mkdir(parents=True, exist_ok=True)
+    mm = np.memmap(shard/"images.dat", dtype=np.uint8, mode="w+", shape=(N,C,H,W))
     labels = np.empty((N,), dtype=np.int64)
-
-    sum_c = np.zeros(3); sumsq_c = np.zeros(3)
-    for i,(x,y) in enumerate(tqdm(records, desc=f"pack {split}", unit="img")):
-        mm[i] = x; labels[i] = y
+    sum_c = np.zeros(3, dtype=np.float64); sumsq_c = np.zeros(3, dtype=np.float64)
+    for i,(x,y) in enumerate(tqdm(records, desc=f"pack {out_dir.parent.name}/{split}", unit="img")):
+        mm[i]=x; labels[i]=y
         xf = x.astype(np.float32)/255.0
-        sum_c += xf.reshape(3,-1).mean(1)
-        sumsq_c += (xf.reshape(3,-1)**2).mean(1)
-    mm.flush(); np.save(part/"index.npy", labels)
-
-    mean = (sum_c/N)
-    var  = (sumsq_c/N) - mean**2
-    std  = np.sqrt(np.maximum(var, 1e-6))
-    (part/"meta.json").write_text(json.dumps({
-        "classes": classes,
-        "num_samples": int(N),
-        "shape": [int(C),int(H),int(W)],
-        "dtype": "uint8",
-        "labels_file": "index.npy",
-        "data_file": "images.dat",
-        "mean": mean.tolist(),
-        "std": std.tolist(),
-        "split": split,
-        "shard": 0
+        sum_c += xf.reshape(3,-1).sum(1)
+        sumsq_c += (xf**2).reshape(3,-1).sum(1)
+    mm.flush(); np.save(shard/"index.npy", labels)
+    total_pix = N*H*W
+    mean = (sum_c/total_pix).tolist()
+    var  = (sumsq_c/total_pix) - np.square(sum_c/total_pix)
+    std  = np.sqrt(np.clip(var, 1e-12, None)).tolist()
+    (shard/"meta.json").write_text(json.dumps({
+        "classes":classes,"num_samples":int(N),"shape":[3,H,W],"dtype":"uint8",
+        "labels_file":"index.npy","data_file":"images.dat","mean":mean,"std":std,
+        "split":split,"shard":0
     }, indent=2, ensure_ascii=False), encoding="utf-8")
 
-# ===== Kopiowanie testowych obrazów w oryginalnym formacie =====
-def copy_test_images(pairs: List[Tuple[Path,str]], dest_root: Path, tag: str):
-    """
-    Kopiuje testowe obrazy 1:1 do dest_root/<klasa>/plik.ext.
-    Rozwiązuje kolizje nazw przez dodanie _1, _2, ...
-    """
+def copy_test_images(pairs: List[Tuple[Path,str]], dest_root: Path):
     if not pairs:
-        print(f"[test→img/{tag}] brak próbek, pomijam")
-        return
-    for p, c in tqdm(pairs, desc=f"copy test→img/{tag}", unit="img"):
-        cls_dir = dest_root / c
-        cls_dir.mkdir(parents=True, exist_ok=True)
-        target = cls_dir / p.name
+        print("[test→img] brak próbek"); return
+    for p,c in tqdm(pairs, desc="copy test→img", unit="img"):
+        cls_dir = dest_root/c; cls_dir.mkdir(parents=True, exist_ok=True)
+        target = cls_dir/p.name
         if target.exists():
-            stem, suf = p.stem, p.suffix
-            k = 1
-            while (cls_dir / f"{stem}_{k}{suf}").exists():
-                k += 1
-            target = cls_dir / f"{stem}_{k}{suf}"
-        try:
-            shutil.copy2(p, target)
-        except Exception as e:
-            print(f"[copy] nie udało się skopiować {p} → {target}: {e}")
+            k=1
+            while (cls_dir/f"{p.stem}_{k}{p.suffix}").exists(): k+=1
+            target = cls_dir/f"{p.stem}_{k}{p.suffix}"
+        try: shutil.copy2(p, target)
+        except Exception as e: print(f"[copy] {p} → {target}: {e}")
 
-# ===== Layout detection =====
-def detect_layout(src: Path) -> str:
-    if (src/"train").exists() or (src/"val").exists() or (src/"validation").exists() or (src/"test").exists():
-        return "presplit_generic"
-    if (src/"Splitted_Dataset").exists() and (src/"Splitted_Dataset"/"Train").exists():
-        return "wheat_splitted"
-    if any(d.is_dir() and d.name.lower().startswith("cross-validation") for d in src.iterdir()):
-        return "tomato_cv"
-    group_names = {"Mono","MuRoHi","MuRoLo","Syl_Hi","Syl_Lo"}
-    if any((src/g).exists() for g in group_names):
-        return "rapeseed_depth2"
-    if any(d.is_dir() for d in src.iterdir()):
-        return "flat1"
-    return "unknown"
-
-# ===== Listing & mapping =====
-def list_paths_with_progress(base: Path, classes: List[str]) -> List[Tuple[Path,str]]:
-    pairs=[]
-    for c in tqdm(classes, desc="scan classes", unit="cls"):
-        for p in (base/c).rglob("*"):
-            if p.is_file() and p.suffix.lower() in IMG_EXTS:
-                pairs.append((p, c))
-    return pairs
-
-def list_flat1(src: Path) -> Tuple[List[Tuple[Path,str]], List[str]]:
-    classes = sorted([d.name for d in src.iterdir() if d.is_dir()])
-    pairs = list_paths_with_progress(src, classes)
-    return pairs, classes
-
-def list_wheat_splitted(src: Path) -> Dict[str, List[Tuple[Path,str]]]:
-    root = src/"Splitted_Dataset"
-    splits = {"train":"Train","val":"Validation","test":"Test"}
-    out={}
-    for key,folder in splits.items():
-        sp = root/folder
-        if not sp.exists(): continue
-        classes = [d.name for d in sp.iterdir() if d.is_dir()]
-        items = list_paths_with_progress(sp, classes)
-        # normalizacja healthy
-        out[key] = [(p, ("healthy" if c.lower().startswith("healthy") else c)) for p,c in items]
-    return out
-
-def list_tomato_cv(src: Path, fold:int=1) -> Dict[str, List[Tuple[Path,str]]]:
-    cv_root = src/f"Cross-validation{fold}"
-    train_root = cv_root/"Train"
-    test_root  = cv_root/"Test"
-    if not train_root.exists() or not test_root.exists():
-        raise SystemExit(f"Brak Cross-validation{fold}/Train lub Test")
-    out={}
-    for key,sp in {"train":train_root,"val":test_root}.items():
-        classes = [d.name for d in sp.iterdir() if d.is_dir()]
-        out[key] = list_paths_with_progress(sp, classes)
-    return out
-
-# ---- RZEPAK: budowa par dla multiclass i binary ----
-def rapeseed_pairs_mono_multiclass(src: Path) -> Tuple[List[Tuple[Path,str]], List[str]]:
-    mono = src/"Mono"
-    if not mono.exists():
-        return [], []
-    # Mono/<Alt_Hi|Lo> -> Alt itd.
-    base_names = []
-    for d in mono.iterdir():
-        if d.is_dir():
-            base_names.append(d.name.split("_")[0].title())
-    classes = sorted(set(base_names))
-    pairs=[]
-    for d in tqdm([x for x in mono.iterdir() if x.is_dir()], desc="scan Mono", unit="cls"):
-        base = d.name.split("_")[0].title()
-        for p in d.rglob("*"):
-            if p.is_file() and p.suffix.lower() in IMG_EXTS:
-                pairs.append((p, base))
-    return pairs, classes
-
-def rapeseed_pairs_binary(src: Path) -> Tuple[List[Tuple[Path,str]], List[str]]:
-    pairs=[]
-    # Syl_* -> healthy
-    for g in ["Syl_Hi","Syl_Lo"]:
-        gp = src/g
-        if gp.exists():
-            for p in gp.rglob("*"):
-                if p.is_file() and p.suffix.lower() in IMG_EXTS:
-                    pairs.append((p, "healthy"))
-    # Mono + MuRoHi + MuRoLo -> diseased
-    for g in ["Mono","MuRoHi","MuRoLo"]:
-        gp = src/g
-        if gp.exists():
-            for p in gp.rglob("*"):
-                if p.is_file() and p.suffix.lower() in IMG_EXTS:
-                    pairs.append((p, "diseased"))
-    return pairs, ["healthy","diseased"]
-
-# ===== Splits =====
-def simple_split(items: List[Tuple[Path,str]], val_ratio: float, test_ratio: float, seed:int):
-    rng=random.Random(seed)
-    by_class: Dict[str, List[Path]] = {}
-    for p,c in items: by_class.setdefault(c,[]).append(p)
-    train=[]; val=[]; test=[]
-    for c,plist in by_class.items():
-        plist = sorted(plist); rng.shuffle(plist)
-        n=len(plist); n_test=int(round(n*test_ratio)); n_val=int(round(n*val_ratio))
+def stratified_split(pairs: List[Tuple[Path,str]], val_ratio: float, test_ratio: float, seed: int):
+    rng = random.Random(seed)
+    by: Dict[str, List[Path]] = {}
+    for p,c in pairs: by.setdefault(c,[]).append(p)
+    train,val,test=[],[],[]
+    for c,plist in by.items():
+        plist = plist[:]; rng.shuffle(plist)
+        n = len(plist)
+        n_test = int(round(n*test_ratio))
+        n_val  = int(round((n-n_test)*val_ratio))
+        if n_test+n_val >= n:
+            n_test = max(0, min(n_test, n-1))
+            n_val  = max(0, min(n_val,  n-1-n_test))
         test += [(p,c) for p in plist[:n_test]]
         val  += [(p,c) for p in plist[n_test:n_test+n_val]]
         train+= [(p,c) for p in plist[n_test+n_val:]]
+    rng.shuffle(train); rng.shuffle(val); rng.shuffle(test)
     return train,val,test
 
-def build_records(pairs: List[Tuple[Path,str]], classes: List[str], aug_mult:int, seed:int, split_name:str):
-    rng = random.Random(seed)
-    c2i = {c:i for i,c in enumerate(classes)}
-    total = len(pairs) * (1 + max(0, aug_mult))
-    recs=[]; skipped=[]
-    pbar = tqdm(total=total, desc=f"build {split_name}", unit="img")
-    for p,c in pairs:
-        arr = load_img_square(p, IMG_SIZE)
-        if arr is None:
-            skipped.append(str(p))
-            # „zużyj” 1 krok paska, bo tej bazowej próbki nie będzie (augmentów też nie robimy)
-            pbar.update(1)
-            continue
-        recs.append((arr, c2i[c])); pbar.update(1)
-        for _ in range(aug_mult):
-            recs.append((aug_image(arr, rng), c2i[c])); pbar.update(1)
-    pbar.close()
+PL_META = {
+  "translation": {
+    "healthy": "zdrowa",
+    "earlyblight": "alternarioza (sucha plamistość liści)",
+    "lateblight": "zaraza ziemniaka"
+  },
+  "display_order": ["lateblight","earlyblight","healthy"]
+}
 
-    if skipped:
-        log = Path("skipped_" + split_name.replace("/", "_") + ".txt")
-        try:
-            log.write_text("\n".join(skipped), encoding="utf-8")
-            print(f"[{split_name}] SKIPPED: {len(skipped)} plików. Lista → {log}")
-        except Exception:
-            print(f"[{split_name}] SKIPPED: {len(skipped)} plików (nie udało się zapisać logu).")
-    return recs
+def scan_potato(src: Path) -> Tuple[List[Tuple[Path,str]], List[str]]:
+    pairs=[]
+    classes=[]
+    for cdir in [d for d in src.iterdir() if d.is_dir()]:
+        cname = cdir.name.strip()
+        classes.append(cname)
+        for p in cdir.rglob("*"):
+            if is_image(p): pairs.append((p, cname))
+    classes = sorted(set(classes))
+    return pairs, classes
 
-# ===== Bin-mapper dla innych datasetów =====
-def is_healthy_name(c: str) -> bool:
-    return bool(re.search(r"(healthy|control|normal|none|ok)", c, re.IGNORECASE))
+def write_ui_meta(out_dir: Path):
+    meta_dir = out_dir/"meta"; meta_dir.mkdir(parents=True, exist_ok=True)
+    (meta_dir/"labels_pl.json").write_text(json.dumps(PL_META, indent=2, ensure_ascii=False), encoding="utf-8")
 
-def make_binary_from_pairs(pairs: List[Tuple[Path,str]]) -> Tuple[List[Tuple[Path,str]], List[str]]:
-    out=[]
-    for p,c in pairs:
-        out.append((p, "healthy" if is_healthy_name(c) else "diseased"))
-    return out, ["healthy","diseased"]
-
-# ===== Main =====
 def main():
-    ap = argparse.ArgumentParser("Dataset → memmap tensors (multiclass + binary) + kopia testowych IMG")
+    global IMG_SIZE
+    ap=argparse.ArgumentParser("ZIEMNIAK (CLS-only) → packs + test_images + NO-LEAK + PL meta")
     ap.add_argument("--src", required=True)
     ap.add_argument("--out", required=True)
-    args = ap.parse_args()
+    ap.add_argument("--val-ratio", "--val_ratio", dest="val_ratio", type=float, default=VAL_RATIO)
+    ap.add_argument("--test-ratio", "--test_ratio", dest="test_ratio", type=float, default=TEST_RATIO)
+    ap.add_argument("--img-size",  "--img_size",  dest="img_size",  type=int,   default=IMG_SIZE)
+    ap.add_argument("--seed", type=int, default=SEED)
+    ap.add_argument("--aug-mult", "--aug_mult", dest="aug_mult", type=int, default=AUG_MULT)
+    ap.add_argument("--hash-threshold", "--hash_threshold", dest="hash_threshold", type=int, default=HASH_THRESHOLD)
+    args=ap.parse_args()
 
-    src = Path(args.src); out = Path(args.out)
+    IMG_SIZE=int(args.img_size)
+    src=Path(args.src); out=Path(args.out)
     (out/"cls").mkdir(parents=True, exist_ok=True)
-    (out/"bin").mkdir(parents=True, exist_ok=True)
+    test_img_root=out/"test_images"; test_img_cls=test_img_root/"cls"
 
-    # foldery na kopie testowych obrazów
-    test_img_root = out/"test_images"
-    test_img_cls  = test_img_root/"cls"
-    test_img_bin  = test_img_root/"bin"
+    items, classes = scan_potato(src)
+    tr,va,te=stratified_split(items, args.val_ratio, args.test_ratio, args.seed)
 
-    banner("DETECT LAYOUT")
-    layout = detect_layout(src)
-    print(f"[detect] {layout}")
+    dg=DedupGuard(threshold=args.hash_threshold, within_test=True, log_csv=out/"_logs"/"dedup_potato_cls.csv")
+    dg.add_pairs(tr+va); te,_=dg.filter_test(te)
 
-    start = time.time()
+    write_pack(out/"cls"/"train","train", to_records(tr, classes, args.aug_mult, args.seed, "train(cls)"), classes)
+    write_pack(out/"cls"/"val","val",     to_records(va, classes, 0,             args.seed, "val(cls)"),   classes)
+    copy_test_images(te, test_img_cls)
 
-    # będziemy pamiętać pary testowe do kopiowania
-    test_pairs_cls: List[Tuple[Path,str]] = []
-    test_pairs_bin: List[Tuple[Path,str]] = []
-
-    if layout == "rapeseed_depth2":
-        # MULTICLASS (Mono only)
-        banner("RAPESEED → MULTICLASS (Mono only)")
-        cls_pairs, cls_classes = rapeseed_pairs_mono_multiclass(src)
-        if cls_pairs:
-            tr,va,te = simple_split(cls_pairs, VAL_RATIO, TEST_RATIO, SEED)
-            rec_tr = build_records(tr, cls_classes, AUG_MULT, SEED, "train(cls)")
-            rec_va = build_records(va, cls_classes, 0, SEED, "val(cls)")
-            write_pack(out/"cls"/"train", "train", rec_tr, cls_classes)
-            write_pack(out/"cls"/"val",   "val",   rec_va, cls_classes)
-            # test dla kopii obrazów (paczki testowej nie budujemy tutaj)
-            test_pairs_cls = te
-        else:
-            print("[cls] Mono puste — pomijam multiklasę dla rzepaku.")
-
-        # BINARY (Syl healthy, reszta diseased)
-        banner("RAPESEED → BINARY (healthy vs diseased)")
-        bin_pairs, bin_classes = rapeseed_pairs_binary(src)
-        trb,vab,teb = simple_split(bin_pairs, VAL_RATIO, TEST_RATIO, SEED)
-        rec_trb = build_records(trb, bin_classes, AUG_MULT, SEED, "train(bin)")
-        rec_vab = build_records(vab, bin_classes, 0, SEED, "val(bin)")
-        write_pack(out/"bin"/"train", "train", rec_trb, bin_classes)
-        write_pack(out/"bin"/"val",   "val",   rec_vab, bin_classes)
-        test_pairs_bin = teb
-
-    elif layout == "wheat_splitted":
-        banner("WHEAT → MULTICLASS")
-        S = list_wheat_splitted(src)
-        cls_classes = sorted({c for _,c in S.get("train",[])})
-        rec_tr = build_records(S.get("train",[]), cls_classes, AUG_MULT, SEED, "train(cls)")
-        rec_va = build_records(S.get("val",[]),   cls_classes, 0, SEED, "val(cls)")
-        write_pack(out/"cls"/"train","train", rec_tr, cls_classes)
-        write_pack(out/"cls"/"val",  "val",   rec_va, cls_classes)
-        if "test" in S and S["test"]:
-            rec_te = build_records(S["test"], cls_classes, 0, SEED, "test(cls)")
-            write_pack(out/"cls"/"test", "test", rec_te, cls_classes)
-            test_pairs_cls = S["test"]
-
-        banner("WHEAT → BINARY")
-        all_pairs = S.get("train",[]) + S.get("val",[]) + S.get("test",[])
-        bin_pairs, bin_classes = make_binary_from_pairs(all_pairs)
-        trb,vab,teb = simple_split(bin_pairs, VAL_RATIO, TEST_RATIO, SEED)
-        write_pack(out/"bin"/"train","train", build_records(trb, bin_classes, AUG_MULT, SEED, "train(bin)"), bin_classes)
-        write_pack(out/"bin"/"val",  "val",   build_records(vab, bin_classes, 0, SEED, "val(bin)"), bin_classes)
-        test_pairs_bin = teb
-
-    elif layout == "tomato_cv":
-        banner("TOMATO → MULTICLASS (CV fold=1)")
-        S = list_tomato_cv(src, fold=1)
-        cls_classes = sorted({c for _,c in S["train"]})
-        rec_tr = build_records(S["train"], cls_classes, AUG_MULT, SEED, "train(cls)")
-        rec_va = build_records(S["val"],   cls_classes, 0, SEED, "val(cls)")
-        write_pack(out/"cls"/"train","train", rec_tr, cls_classes)
-        write_pack(out/"cls"/"val",  "val",   rec_va, cls_classes)
-
-        banner("TOMATO → BINARY")
-        bin_pairs, bin_classes = make_binary_from_pairs(S["train"] + S["val"])
-        trb,vab,teb = simple_split(bin_pairs, VAL_RATIO, TEST_RATIO, SEED)
-        write_pack(out/"bin"/"train","train", build_records(trb, bin_classes, AUG_MULT, SEED, "train(bin)"), bin_classes)
-        write_pack(out/"bin"/"val",  "val",   build_records(vab, bin_classes, 0, SEED, "val(bin)"), bin_classes)
-        # brak natywnego testu; z prostego splitu weźmiemy tylko do kopii IMG
-        test_pairs_cls = []   # nie budowaliśmy test(cls)
-        test_pairs_bin = teb
-
-
-    elif layout == "presplit_generic":
-
-        banner("PRESPLIT → MULTICLASS")
-
-        import re
-        def is_healthy_name(c: str) -> bool:
-            # rozpoznaje warianty 'healthy' / 'control' / 'normal' / 'none' / 'ok'
-            return bool(re.search(r"(HealthyLeaf|healthy|control|normal|none|ok)", c, re.IGNORECASE))
-
-        def list_split(sp: Path):
-            # zczytaj oryginalne foldery
-            orig_classes = sorted([d.name for d in sp.iterdir() if d.is_dir()])
-            # znormalizuj nazwy do CLS: wszystkie „zdrowe” → 'healthy'
-            norm_name = lambda c: ("healthy" if is_healthy_name(c) else c)
-            classes = sorted(set(norm_name(c) for c in orig_classes))
-            pairs = []
-
-            for c in tqdm(orig_classes, desc=f"scan {sp.name}", unit="cls"):
-                for p in (sp / c).rglob("*"):
-                    if p.is_file() and p.suffix.lower() in IMG_EXTS:
-                        pairs.append((p, norm_name(c)))
-            return pairs, classes
-
-        tr_pairs, cls_classes = list_split(src / "train")
-        rec_tr = build_records(tr_pairs, cls_classes, AUG_MULT, SEED, "train(cls)")
-        write_pack(out / "cls" / "train", "train", rec_tr, cls_classes)
-        va_dir = src / ("val" if (src / "val").exists() else "validation") if (
-                    (src / "val").exists() or (src / "validation").exists()) else None
-        va_pairs = []
-
-        if va_dir:
-            va_pairs, _ = list_split(va_dir)
-            write_pack(out / "cls" / "val", "val", build_records(va_pairs, cls_classes, 0, SEED, "val(cls)"),
-                       cls_classes)
-        te_pairs = []
-        if (src / "test").exists():
-            te_pairs, _ = list_split(src / "test")
-            write_pack(out / "cls" / "test", "test", build_records(te_pairs, cls_classes, 0, SEED, "test(cls)"),
-                       cls_classes)
-            test_pairs_cls = te_pairs
-        banner("PRESPLIT → BINARY")
-        all_pairs = tr_pairs + (va_pairs if va_dir else []) + te_pairs
-        bin_pairs, bin_classes = make_binary_from_pairs(all_pairs)
-        trb, vab, teb = simple_split(bin_pairs, VAL_RATIO, TEST_RATIO, SEED)
-        write_pack(out / "bin" / "train", "train", build_records(trb, bin_classes, AUG_MULT, SEED, "train(bin)"),
-                   bin_classes)
-        write_pack(out / "bin" / "val", "val", build_records(vab, bin_classes, 0, SEED, "val(bin)"), bin_classes)
-
-        # jeżeli był natywny test, to test_images/bin weźmiemy z niego
-
-        test_pairs_bin = teb if not te_pairs else make_binary_from_pairs(te_pairs)[0]
-
-    elif layout == "flat1":
-        banner("FLAT1 → MULTICLASS")
-        items, cls_classes = list_flat1(src)
-        tr,va,te = simple_split(items, VAL_RATIO, TEST_RATIO, SEED)
-        write_pack(out/"cls"/"train","train", build_records(tr, cls_classes, AUG_MULT, SEED, "train(cls)"), cls_classes)
-        write_pack(out/"cls"/"val","val",     build_records(va, cls_classes, 0, SEED, "val(cls)"), cls_classes)
-        if te:
-            write_pack(out/"cls"/"test","test", build_records(te, cls_classes, 0, SEED, "test(cls)"), cls_classes)
-            test_pairs_cls = te
-
-        banner("FLAT1 → BINARY")
-        bin_pairs, bin_classes = make_binary_from_pairs(items)
-        trb,vab,teb = simple_split(bin_pairs, VAL_RATIO, TEST_RATIO, SEED)
-        write_pack(out/"bin"/"train","train", build_records(trb, bin_classes, AUG_MULT, SEED, "train(bin)"), bin_classes)
-        write_pack(out/"bin"/"val",  "val",   build_records(vab, bin_classes, 0, SEED, "val(bin)"), bin_classes)
-        test_pairs_bin = teb
-
-    else:
-        raise SystemExit("Nie rozpoznano układu. Pokaż strukturę katalogów albo popraw ścieżkę.")
-
-    # zapis globalnego info
+    write_ui_meta(out)
     (out/"builder_config.json").write_text(json.dumps({
-        "img_size": IMG_SIZE, "val_ratio": VAL_RATIO, "test_ratio": TEST_RATIO,
-        "seed": SEED, "aug_mult_train": AUG_MULT,
-        "outputs": ["cls","bin"]
-    }, indent=2), encoding="utf-8")
-
-    # Kopiowanie testowych obrazów 1:1 obok paczek
-    if test_pairs_cls:
-        copy_test_images(test_pairs_cls, test_img_cls, tag="cls")
-    if test_pairs_bin:
-        copy_test_images(test_pairs_bin, test_img_bin, tag="bin")
-
-    mins = (time.time()-start)/60
-    banner(f"GOTOWE w {mins:.1f} min")
-    print(f"CLS packs: {(out/'cls'/'train').as_posix()}, {(out/'cls'/'val').as_posix() if (out/'cls'/'val').exists() else '—'}, {(out/'cls'/'test').as_posix() if (out/'cls'/'test').exists() else '—'}")
-    print(f"BIN packs: {(out/'bin'/'train').as_posix()}, {(out/'bin'/'val').as_posix() if (out/'bin'/'val').exists() else '—'}")
-    print(f"IMG test:  {(test_img_cls.as_posix() if test_pairs_cls else '—')}, {(test_img_bin.as_posix() if test_pairs_bin else '—')}")
+        "dataset":"potato","img_size": IMG_SIZE,"val_ratio": args.val_ratio,"test_ratio": args.test_ratio,
+        "seed": args.seed,"aug_mult_train": args.aug_mult,"hash_threshold": args.hash_threshold
+    }, indent=2, ensure_ascii=False), encoding="utf-8")
+    print("GOTOWE ✅", out.as_posix())
 
 if __name__ == "__main__":
     main()
