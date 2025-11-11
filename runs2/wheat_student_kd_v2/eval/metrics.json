@@ -1,0 +1,59 @@
+{
+  "acc": 0.8905109489051095,
+  "f1_macro": 0.9149633082602762,
+  "classes": [
+    "Healthy",
+    "LeafBlight",
+    "Rust",
+    "PowderyMildew",
+    "FusariumFootRot",
+    "WheatBlast",
+    "BlackPoint"
+  ],
+  "norm_source": "meta.json",
+  "img_size": 380,
+  "per_class": {
+    "Healthy": {
+      "precision": 0.8048780487804879,
+      "recall": 0.9166666666666666,
+      "f1": 0.8571428571428571,
+      "support": 36
+    },
+    "LeafBlight": {
+      "precision": 0.8648648648648649,
+      "recall": 0.8205128205128205,
+      "f1": 0.8421052631578947,
+      "support": 39
+    },
+    "Rust": {
+      "precision": 0.9224137931034483,
+      "recall": 0.84251968503937,
+      "f1": 0.8806584362139918,
+      "support": 127
+    },
+    "PowderyMildew": {
+      "precision": 0.7307692307692307,
+      "recall": 1.0,
+      "f1": 0.8444444444444444,
+      "support": 19
+    },
+    "FusariumFootRot": {
+      "precision": 0.9615384615384616,
+      "recall": 1.0,
+      "f1": 0.9803921568627451,
+      "support": 25
+    },
+    "WheatBlast": {
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0,
+      "support": 14
+    },
+    "BlackPoint": {
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0,
+      "support": 14
+    }
+  }
+}

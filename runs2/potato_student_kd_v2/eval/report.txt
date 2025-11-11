@@ -1,0 +1,9 @@
+              precision    recall  f1-score   support
+
+    earlyblt       0.98      0.92      0.95        87
+     healthy       1.00      0.99      1.00       797
+     lateblt       0.98      0.99      0.98       448
+
+    accuracy                           0.99      1332
+   macro avg       0.98      0.97      0.98      1332
+weighted avg       0.99      0.99      0.99      1332

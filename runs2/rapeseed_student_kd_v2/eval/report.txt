@@ -1,0 +1,15 @@
+              precision    recall  f1-score   support
+
+         Alt       0.87      0.87      0.87        82
+         Big       0.79      0.75      0.77        96
+         Bot       0.88      0.75      0.81        20
+         Mac       0.84      0.87      0.86        99
+         Mil       0.84      0.92      0.88        59
+         Myc       0.86      0.92      0.89       117
+         Pse       0.87      0.83      0.85       164
+         Xan       0.92      0.92      0.92        91
+     healthy       0.89      0.87      0.88        55
+
+    accuracy                           0.86       783
+   macro avg       0.86      0.86      0.86       783
+weighted avg       0.86      0.86      0.86       783

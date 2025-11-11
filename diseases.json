@@ -1,0 +1,242 @@
+{
+  "common_healthy": {
+    "pl": "Zdrowy",
+    "en": "Healthy",
+    "aliases": [
+      "healthy",
+      "Healthy",
+      "healthy227",
+      "Syl",
+      "symptomless",
+      "brak choroby"
+    ],
+    "crops": ["potato", "tomato", "wheat", "oilseed_rape"]
+  },
+
+  "potato_early_blight": {
+    "pl": "Alternarioza ziemniaka",
+    "en": "Potato Early Blight",
+    "aliases": [
+      "earlyblt",
+      "alternarioza ziemniaka"
+    ],
+    "crops": ["potato"]
+  },
+  "potato_late_blight": {
+    "pl": "Zaraza ziemniaka",
+    "en": "Potato Late Blight",
+    "aliases": [
+      "lateblt",
+      "zaraza ziemniaka"
+    ],
+    "crops": ["potato"]
+  },
+
+  "tomato_bacterial_spot": {
+    "pl": "Bakteryjna plamistość pomidora",
+    "en": "Bacterial spot",
+    "aliases": [
+      "Bacterial_spot227",
+      "bakteryjna plamistość"
+    ],
+    "crops": ["tomato"]
+  },
+  "tomato_early_blight": {
+    "pl": "Alternarioza pomidora",
+    "en": "Tomato Early Blight",
+    "aliases": [
+      "Early_blight227",
+      "alternarioza pomidora"
+    ],
+    "crops": ["tomato"]
+  },
+  "tomato_late_blight": {
+    "pl": "Zaraza ziemniaka (na pomidorze)",
+    "en": "Tomato Late Blight",
+    "aliases": [
+      "Late_blight227",
+      "zaraza na pomidorze"
+    ],
+    "crops": ["tomato"]
+  },
+  "tomato_leaf_mold": {
+    "pl": "Brunatna plamistość liści pomidora",
+    "en": "Leaf Mold",
+    "aliases": [
+      "Leaf_Mold227"
+    ],
+    "crops": ["tomato"]
+  },
+  "tomato_septoria_leaf_spot": {
+    "pl": "Septorioza pomidora",
+    "en": "Septoria leaf spot",
+    "aliases": [
+      "Septoria_leaf_spot227",
+      "septorioza"
+    ],
+    "crops": ["tomato"]
+  },
+  "tomato_target_spot": {
+    "pl": "Plamistość (Target Spot)",
+    "en": "Target Spot",
+    "aliases": [
+      "Target_Spot227"
+    ],
+    "crops": ["tomato"]
+  },
+  "tomato_yellow_leaf_curl_virus": {
+    "pl": "Wirus żółtej kędzierzawości liści (TYLCV)",
+    "en": "Tomato Yellow Leaf Curl Virus",
+    "aliases": [
+      "Tomato_Yellow_Leaf_Curl_Virus227",
+      "tylcv"
+    ],
+    "crops": ["tomato"]
+  },
+  "tomato_mosaic_virus": {
+    "pl": "Wirus mozaiki pomidora (ToMV)",
+    "en": "Tomato mosaic virus",
+    "aliases": [
+      "Tomato_mosaic_virus227",
+      "tomv"
+    ],
+    "crops": ["tomato"]
+  },
+  "tomato_spider_mite": {
+    "pl": "Przędziorek chmielowiec",
+    "en": "Two-spotted spider mite",
+    "aliases": [
+      "Two-spotted_spider_mite227",
+      "przędziorek"
+    ],
+    "crops": ["tomato"]
+  },
+
+  "wheat_leaf_rust": {
+    "pl": "Rdza brunatna pszenicy",
+    "en": "Wheat Leaf Rust",
+    "aliases": [
+      "Rust",
+      "rdza brunatna"
+    ],
+    "crops": ["wheat"]
+  },
+  "wheat_septoria_leaf_blotch": {
+    "pl": "Septorioza paskowana liści pszenicy",
+    "en": "Septoria Leaf Blotch",
+    "aliases": [
+      "LeafBlight",
+      "septorioza"
+    ],
+    "crops": ["wheat"]
+  },
+  "wheat_powdery_mildew": {
+    "pl": "Mączniak prawdziwy zbóż",
+    "en": "Powdery Mildew",
+    "aliases": [
+      "PowderyMildew",
+      "mączniak"
+    ],
+    "crops": ["wheat"]
+  },
+  "wheat_fusarium_foot_rot": {
+    "pl": "Fuzaryjna zgorzel podstawy źdźbła",
+    "en": "Fusarium Foot Rot",
+    "aliases": [
+      "FusariumFootRot",
+      "fuzarioza"
+    ],
+    "crops": ["wheat"]
+  },
+  "wheat_blast": {
+    "pl": "Zaraza kłosów pszenicy",
+    "en": "Wheat Blast",
+    "aliases": [
+      "WheatBlast",
+      "zaraza kłosów"
+    ],
+    "crops": ["wheat"]
+  },
+  "wheat_black_point": {
+    "pl": "Czerń punktowa ziarna",
+    "en": "Black Point",
+    "aliases": [
+      "BlackPoint",
+      "czerń punktowa"
+    ],
+    "crops": ["wheat"]
+  },
+
+  "rape_alternaria": {
+    "pl": "Czerń krzyżowych (Rzepak)",
+    "en": "Black spot",
+    "aliases": [
+      "Alt",
+      "czerń rzepaku",
+      "Alternaria brassicae"
+    ],
+    "crops": ["oilseed_rape"]
+  },
+  "rape_phoma_stem_canker": {
+    "pl": "Sucha zgnilizna kapustnych (Phoma)",
+    "en": "Phoma stem canker / Blackleg",
+    "aliases": [
+      "Big",
+      "Mac",
+      "Leptosphaeria maculans",
+      "Leptosphaeria biglobosa",
+      "phoma",
+      "sucha zgnilizna"
+    ],
+    "crops": ["oilseed_rape"]
+  },
+  "rape_grey_mould": {
+    "pl": "Szara pleśń (Rzepak)",
+    "en": "Grey mould",
+    "aliases": [
+      "Bot",
+      "szara pleśń rzepaku"
+    ],
+    "crops": ["oilseed_rape"]
+  },
+  "rape_powdery_mildew": {
+    "pl": "Mączniak prawdziwy (Rzepak)",
+    "en": "Powdery mildew",
+    "aliases": [
+      "Mil",
+      "Ery",
+      "mączniak rzepaku"
+    ],
+    "crops": ["oilseed_rape"]
+  },
+  "rape_ring_spot": {
+    "pl": "Plamistość pierścieniowa (Rzepak)",
+    "en": "Ring spot",
+    "aliases": [
+      "Myc",
+      "Mycosphaerella brassicae",
+      "plamistość pierścieniowa rzepaku"
+    ],
+    "crops": ["oilseed_rape"]
+  },
+  "rape_white_leaf_spot": {
+    "pl": "Biała plamistość liści (Rzepak)",
+    "en": "White leaf spot",
+    "aliases": [
+      "Pse",
+      "Pseudocercosporella capsellae",
+      "biała plamistość rzepaku"
+    ],
+    "crops": ["oilseed_rape"]
+  },
+  "rape_black_rot": {
+    "pl": "Czarna zgnilizna kapustnych (Rzepak)",
+    "en": "Black rot",
+    "aliases": [
+      "Xan",
+      "Xanthomonas",
+      "czarna zgnilizna rzepaku"
+    ],
+    "crops": ["oilseed_rape"]
+  }
+}

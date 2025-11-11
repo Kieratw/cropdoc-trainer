@@ -1,0 +1,31 @@
+{
+  "acc": 0.9887387387387387,
+  "f1_macro": 0.9754551407426696,
+  "classes": [
+    "earlyblt",
+    "healthy",
+    "lateblt"
+  ],
+  "norm_source": "meta.json",
+  "img_size": 380,
+  "per_class": {
+    "earlyblt": {
+      "precision": 0.975609756097561,
+      "recall": 0.9195402298850575,
+      "f1": 0.9467455621301775,
+      "support": 87
+    },
+    "healthy": {
+      "precision": 0.9974842767295597,
+      "recall": 0.9949811794228356,
+      "f1": 0.9962311557788944,
+      "support": 797
+    },
+    "lateblt": {
+      "precision": 0.9758241758241758,
+      "recall": 0.9910714285714286,
+      "f1": 0.9833887043189369,
+      "support": 448
+    }
+  }
+}

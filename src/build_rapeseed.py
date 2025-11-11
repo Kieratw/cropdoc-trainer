@@ -1,3 +1,12 @@
+# build_rapeseed.py
+# RZEPAK (CLS) → packs + test_images + NO-LEAK + PL meta
+# Obsługa Hi/Lo: Alt_Hi + Alt_Lo → Alt; tylko Syl_* → healthy
+# Dodatki:
+#  - scan_debug.json w _logs/ z mapowaniem folder→klasa
+#  - dedup testu (bytes + aHash64, próg Hamming = 3)
+#  - packi: cls/train/s000, cls/val/s000, test_images/cls
+#  - labels_pl.json z prostą kolejnością (healthy na końcu)
+
 import argparse, json, random, re, io, csv, hashlib, shutil
 from pathlib import Path
 from typing import List, Tuple, Dict, Optional
@@ -6,7 +15,7 @@ from PIL import Image, ImageFile, ImageEnhance
 from tqdm import tqdm
 ImageFile.LOAD_TRUNCATED_IMAGES = True
 
-# ===== Defaults =====
+# ---------- stałe ----------
 IMG_EXTS = {".jpg",".jpeg",".png",".webp",".bmp",".tif",".tiff"}
 IMG_SIZE = 380
 VAL_RATIO = 0.15
@@ -15,7 +24,10 @@ SEED = 42
 HASH_THRESHOLD = 3
 AUG_MULT = 3
 
-# ===== Hashing & dedup =====
+# tylko te prefiksy traktujemy jako “healthy”
+HEALTHY_KEYS = {"syl", "healthy", "zdrowe", "zdrowy"}
+
+# ---------- hash/dedup ----------
 def _read_bytes_for_hash(p: Path):
     try:
         return p.read_bytes()
@@ -83,14 +95,13 @@ class DedupGuard:
             kept = out
         if self.log_csv:
             self.log_csv.parent.mkdir(parents=True, exist_ok=True)
-            import csv as _csv
             with open(self.log_csv, "w", encoding="utf-8", newline="") as f:
-                w = _csv.writer(f); w.writerow(["path","class","action","reason"])
+                w = csv.writer(f); w.writerow(["path","class","action","reason"])
                 for p,c in kept: w.writerow([str(p), c, "keep", ""])
                 for p,c,r in removed: w.writerow([str(p), c, "drop", r])
         return kept, removed
 
-# ===== IO & packs =====
+# ---------- IO/pack ----------
 def is_image(p: Path) -> bool:
     return p.is_file() and p.suffix.lower() in IMG_EXTS
 
@@ -104,8 +115,8 @@ def load_img_square(path: Path, size: int) -> Optional[np.ndarray]:
             im = im.resize((nw,nh), Image.BICUBIC)
             l=(nw-size)//2; t=(nh-size)//2
             im = im.crop((l,t,l+size,t+size))
-            arr = np.asarray(im, dtype=np.uint8)  # HWC
-            return np.transpose(arr,(2,0,1))      # CHW
+            arr = np.asarray(im, dtype=np.uint8)
+            return np.transpose(arr,(2,0,1))  # CHW
     except Exception:
         return None
 
@@ -113,16 +124,17 @@ def to_records(pairs: List[Tuple[Path,str]], classes: List[str], aug_mult: int, 
     rng = random.Random(seed); c2i = {c:i for i,c in enumerate(classes)}; out = []
     pbar = tqdm(total=len(pairs)*(1+max(0,aug_mult)), desc=f"build {split_name}", unit="img")
     for p,c in pairs:
-        arr = load_img_square(p, IMG_SIZE)
-        if arr is None: pbar.update(1); continue
-        y = c2i[c]; out.append((arr,y)); pbar.update(1)
+        x = load_img_square(p, IMG_SIZE)
+        if x is None: pbar.update(1); continue
+        y = c2i[c]; out.append((x,y)); pbar.update(1)
         for _ in range(max(0,aug_mult)):
-            img = Image.fromarray(np.transpose(arr,(1,2,0)))
+            img = Image.fromarray(np.transpose(x,(1,2,0)))
             if rng.random()<0.6: img = img.rotate(rng.uniform(-10,10), resample=Image.BICUBIC, expand=False, fillcolor=(0,0,0))
             if rng.random()<0.5: img = ImageEnhance.Brightness(img).enhance(rng.uniform(0.9,1.1))
             if rng.random()<0.5: img = ImageEnhance.Contrast(img).enhance(rng.uniform(0.9,1.1))
             if rng.random()<0.5: img = ImageEnhance.Color(img).enhance(rng.uniform(0.9,1.1))
-            aug = np.asarray(img, dtype=np.uint8); aug = np.transpose(aug,(2,0,1))
+            aug = np.asarray(img, dtype=np.uint8)
+            aug = np.transpose(aug,(2,0,1))
             out.append((aug,y)); pbar.update(1)
     pbar.close(); return out
 
@@ -153,8 +165,7 @@ def write_pack(out_dir: Path, split: str, records, classes: List[str]):
 
 def copy_test_images(pairs: List[Tuple[Path,str]], dest_root: Path):
     if not pairs:
-        print("[test→img] brak próbek");
-        return
+        print("[test→img] brak próbek"); return
     for p,c in tqdm(pairs, desc="copy test→img", unit="img"):
         cls_dir = dest_root/c; cls_dir.mkdir(parents=True, exist_ok=True)
         target = cls_dir/p.name
@@ -184,79 +195,137 @@ def stratified_split(pairs: List[Tuple[Path,str]], val_ratio: float, test_ratio:
     rng.shuffle(train); rng.shuffle(val); rng.shuffle(test)
     return train,val,test
 
-PL_META = {
-  "translation": {
-    "healthy": "zdrowa",
-    "Alt": "alternarioza / czerń krzyżowych",
-    "Big": "sucha zgnilizna kapustnych (Phoma)",
-    "Mac": "sucha zgnilizna kapustnych (Phoma)",
-    "Scl": "zgnilizna twardzikowa",
-    "Ery": "mączniak prawdziwy",
-    "Hya": "mączniak rzekomy",
-    "Cyl": "cylindrosporioza (light leaf spot)",
-    "Pse": "biała plamistość liści",
-    "Myc": "plamistość pierścieniowa",
-    "Vir": "wirus",
-    "Ins": "uszkodzenia przez szkodniki",
-    "Ntr": "uszkodzenia/fitotoksyczność (nawożenie)"
-  },
-  "display_order": [
-    "Mac","Big","Alt","Scl","Ery","Hya","Cyl","Pse","Myc","Vir","Ins","Ntr","healthy"
-  ]
-}
+# ---------- meta do UI ----------
+PL_META_BASE = {"translation": {"healthy":"zdrowa"}, "display_order": []}
 
-def scan_multiclass(src: Path) -> List[Tuple[Path,str]]:
+def write_ui_meta(out_dir: Path, classes: List[str]):
+    meta_dir = out_dir/"meta"; meta_dir.mkdir(parents=True, exist_ok=True)
+    ordered = [c for c in classes if c != "healthy"] + (["healthy"] if "healthy" in classes else [])
+    data = dict(PL_META_BASE)
+    tr = dict(PL_META_BASE["translation"])
+    for c in classes:
+        tr.setdefault(c, c)
+    data["translation"] = tr
+    data["display_order"] = ordered
+    (meta_dir/"labels_pl.json").write_text(json.dumps(data, indent=2, ensure_ascii=False), encoding="utf-8")
+
+# ---------- skanery ----------
+HILO_RE = re.compile(r"^\s*([A-Za-z0-9]+)_(Hi|Lo)\s*$", re.IGNORECASE)
+
+def _canon_from_base(base: str) -> str:
+    key = re.sub(r"[^A-Za-z0-9]+", "", base).lower()
+    return "healthy" if key in HEALTHY_KEYS else base
+
+def looks_like_hilo(src: Path) -> bool:
+    for d in src.iterdir():
+        if d.is_dir() and HILO_RE.match(d.name):
+            return True
+    return False
+
+def scan_hilo(src: Path):
+    """Zwraca (pairs, debug) gdzie pairs = [(path, klasa)], debug = lista wpisów z licznikiem."""
+    pairs: List[Tuple[Path,str]] = []
+    debug_rows = []
+    for d in sorted([x for x in src.iterdir() if x.is_dir()]):
+        m = HILO_RE.match(d.name)
+        if not m: continue
+        base = m.group(1).strip()
+        canonical = _canon_from_base(base)
+        cnt = 0
+        for p in d.rglob("*"):
+            if is_image(p):
+                pairs.append((p, canonical)); cnt += 1
+        debug_rows.append({"folder": d.name, "base": base, "canonical": canonical, "count": cnt})
+    return pairs, debug_rows
+
+def scan_legacy(src: Path):
     roots = []
     for name in ["Mono","MuRo","Vir","Ins","Ntr","healthy"]:
         d = src/name
         if d.exists() and d.is_dir(): roots.append(d)
-    pairs=[]
+    pairs=[]; debug_rows=[]
     for r in roots:
         for cdir in [d for d in r.iterdir() if d.is_dir()]:
             cname = cdir.name.strip()
+            canonical = _canon_from_base(cname)
+            cnt=0
             for p in cdir.rglob("*"):
-                if is_image(p): pairs.append((p, cname))
-    return pairs
+                if is_image(p): pairs.append((p, canonical)); cnt+=1
+            debug_rows.append({"folder": f"{r.name}/{cdir.name}", "base": cname, "canonical": canonical, "count": cnt})
+    return pairs, debug_rows
 
-def write_ui_meta(out_dir: Path):
-    meta_dir = out_dir/"meta"; meta_dir.mkdir(parents=True, exist_ok=True)
-    (meta_dir/"labels_pl.json").write_text(json.dumps(PL_META, indent=2, ensure_ascii=False), encoding="utf-8")
-
+# ---------- main ----------
 def main():
     global IMG_SIZE
-    ap = argparse.ArgumentParser("RZEPAK (CLS-only) → packs + test_images + NO-LEAK + PL meta")
+    ap = argparse.ArgumentParser("Rapeseed builder (Hi/Lo merge; Syl_* → healthy)")
     ap.add_argument("--src", required=True)
     ap.add_argument("--out", required=True)
-    # aliasy: myślnik/podkreślenie
-    ap.add_argument("--val-ratio", "--val_ratio", dest="val_ratio", type=float, default=VAL_RATIO)
-    ap.add_argument("--test-ratio", "--test_ratio", dest="test_ratio", type=float, default=TEST_RATIO)
-    ap.add_argument("--img-size", "--img_size", dest="img_size", type=int, default=IMG_SIZE)
+    ap.add_argument("--val_ratio", type=float, default=VAL_RATIO)
+    ap.add_argument("--test_ratio", type=float, default=TEST_RATIO)
+    ap.add_argument("--img_size", type=int, default=IMG_SIZE)
     ap.add_argument("--seed", type=int, default=SEED)
-    ap.add_argument("--aug-mult", "--aug_mult", dest="aug_mult", type=int, default=AUG_MULT)
-    ap.add_argument("--hash-threshold", "--hash_threshold", dest="hash_threshold", type=int, default=HASH_THRESHOLD)
+    ap.add_argument("--aug_mult", type=int, default=AUG_MULT)
+    ap.add_argument("--hash_threshold", type=int, default=HASH_THRESHOLD)
     args = ap.parse_args()
 
     IMG_SIZE = int(args.img_size)
-
     src = Path(args.src); out = Path(args.out)
-    (out/"cls").mkdir(parents=True, exist_ok=True)
-    test_img_root = out/"test_images"; test_img_cls = test_img_root/"cls"
+    out.mkdir(parents=True, exist_ok=True)
+    log_dir = out/"_logs"; log_dir.mkdir(parents=True, exist_ok=True)
 
-    # CLS
-    cls_pairs = scan_multiclass(src)
-    cls_classes = sorted({c for _,c in cls_pairs})
+    # skan
+    if looks_like_hilo(src):
+        print("[scan] Wykryto Hi/Lo. Łączenie par; Syl_* → healthy.")
+        cls_pairs, scan_debug = scan_hilo(src)
+        schema = "hilo"
+    else:
+        print("[scan] Wykryto legacy (Mono/MuRo/...).")
+        cls_pairs, scan_debug = scan_legacy(src)
+        schema = "legacy"
+
+    # zapis debug
+    (log_dir/"scan_debug.json").write_text(json.dumps(scan_debug, indent=2, ensure_ascii=False), encoding="utf-8")
+
+    if not cls_pairs:
+        raise SystemExit("Brak obrazów w źródle. Pustką modelu nie nakarmisz.")
+
+    # klasy (healthy zawsze na końcu)
+    uniq = sorted({c for _,c in cls_pairs if c != "healthy"})
+    if any(c == "healthy" for _,c in cls_pairs):
+        uniq.append("healthy")
+    classes = uniq[:]
+
+    # sanity
+    counts: Dict[str,int] = {}
+    for _,c in cls_pairs: counts[c] = counts.get(c,0) + 1
+    print("[scan] Klasy:")
+    for c in classes:
+        print(f"   {c:>12}: {counts.get(c,0)}")
+    if len(classes) == 1 and classes[0] == "healthy":
+        print("\n[UWAGA] Wyszła tylko klasa 'healthy'. Sprawdź scan_debug.json. "
+              "To zwykle oznacza, że wszystkie foldery miały prefiks Syl_* albo ścieżkę źródła wskazałeś nie tam, gdzie trzeba.")
+
+    # split + dedup testu
     tr, va, te = stratified_split(cls_pairs, args.val_ratio, args.test_ratio, args.seed)
-    dg = DedupGuard(threshold=args.hash_threshold, within_test=True, log_csv=(out/"_logs"/"dedup_rapeseed_cls.csv"))
-    dg.add_pairs(tr + va); te, _ = dg.filter_test(te)
+    dg = DedupGuard(threshold=args.hash_threshold, within_test=True, log_csv=(log_dir/"dedup_test.csv"))
+    dg.add_pairs(tr + va)
+    te, removed = dg.filter_test(te)
+    if removed:
+        print(f"[dedup] Z testu usunięto {len(removed)} duplikatów/podobnych.")
 
-    write_pack(out/"cls"/"train","train", to_records(tr, cls_classes, args.aug_mult, args.seed, "train(cls)"), cls_classes)
-    write_pack(out/"cls"/"val","val",     to_records(va, cls_classes, 0,             args.seed, "val(cls)"),   cls_classes)
-    copy_test_images(te, test_img_cls)
+    # budowa
+    write_pack(out/"cls"/"train","train", to_records(tr, classes, args.aug_mult, args.seed, "train"), classes)
+    write_pack(out/"cls"/"val",  "val",   to_records(va, classes, 0,             args.seed, "val"),   classes)
+    copy_test_images(te, out/"test_images"/"cls")
+    write_ui_meta(out, classes)
 
-    write_ui_meta(out)
+    # config
     (out/"builder_config.json").write_text(json.dumps({
-        "dataset":"rapeseed","val_ratio": args.val_ratio, "test_ratio": args.test_ratio,
-        "img_size": IMG_SIZE, "seed": args.seed, "aug_mult_train": args.aug_mult, "hash_threshold": args.hash_threshold
+        "dataset":"rapeseed", "schema": schema,
+        "val_ratio": args.val_ratio, "test_ratio": args.test_ratio,
+        "img_size": IMG_SIZE, "seed": args.seed,
+        "aug_mult_train": args.aug_mult, "hash_threshold": args.hash_threshold,
+        "classes": classes
     }, indent=2, ensure_ascii=False), encoding="utf-8")
     print("GOTOWE ✅", out.as_posix())
 
