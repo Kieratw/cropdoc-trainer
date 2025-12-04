@@ -11,7 +11,7 @@ IMG_SIZE = 380
 VAL_RATIO = 0.15
 SEED = 42
 HASH_THRESHOLD = 3
-AUG_MULT = 3
+AUG_MULT = 0  # offline augment wyłączony
 
 def _read_bytes_for_hash(p: Path):
     try:
@@ -112,6 +112,7 @@ def to_records(pairs: List[Tuple[Path,str]], classes: List[str], aug_mult: int, 
         arr = load_img_square(p, IMG_SIZE)
         if arr is None: pbar.update(1); continue
         y = c2i[c]; out.append((arr,y)); pbar.update(1)
+        # aug_mult zawsze 0 w train → pętla nie wykona się ani razu
         for _ in range(max(0,aug_mult)):
             img = Image.fromarray(np.transpose(arr,(1,2,0)))
             if rng.random()<0.6: img = img.rotate(rng.uniform(-10,10), resample=Image.BICUBIC, expand=False, fillcolor=(0,0,0))
@@ -222,7 +223,7 @@ def main():
     ap.add_argument("--cv", type=int, default=None, help="nr folda (1..5), gdy wskazujesz root z wieloma CV")
     ap.add_argument("--img-size", "--img_size", dest="img_size", type=int, default=IMG_SIZE)
     ap.add_argument("--val-ratio", "--val_ratio", dest="val_ratio", type=float, default=VAL_RATIO)
-    ap.add_argument("--aug-mult", "--aug_mult", dest="aug_mult", type=int, default=AUG_MULT)
+    ap.add_argument("--aug-mult", "--aug_mult", dest="aug_mult", type=int, default=AUG_MULT)  # ignorowane dla train
     ap.add_argument("--seed", type=int, default=SEED)
     ap.add_argument("--hash-threshold", "--hash_threshold", dest="hash_threshold", type=int, default=HASH_THRESHOLD)
     args=ap.parse_args()
@@ -259,10 +260,10 @@ def main():
         dg = DedupGuard(threshold=args.hash_threshold, within_test=True, log_csv=out/"_logs"/"dedup_tomato_cls.csv")
         dg.add_pairs(tr+va); test_all,_ = dg.filter_test(te_pairs)
 
-    # CLS packs
+    # CLS packs – train bez offline augmentu
     cls_classes = classes
-    write_pack(out/"cls"/"train","train", to_records(tr, cls_classes, args.aug_mult, args.seed, "train(cls)"), cls_classes)
-    write_pack(out/"cls"/"val","val",     to_records(va, cls_classes, 0,             args.seed, "val(cls)"),   cls_classes)
+    write_pack(out/"cls"/"train","train", to_records(tr, cls_classes, 0,           args.seed, "train(cls)"), cls_classes)
+    write_pack(out/"cls"/"val","val",     to_records(va, cls_classes, 0,           args.seed, "val(cls)"),   cls_classes)
 
     # TEST: kopie oryginałów
     copy_test_images(test_all, test_img_cls)
@@ -270,7 +271,7 @@ def main():
     write_ui_meta(out)
     (out/"builder_config.json").write_text(json.dumps({
         "dataset":"tomato","img_size": IMG_SIZE,"val_ratio": args.val_ratio,
-        "seed": args.seed,"aug_mult_train": args.aug_mult,"hash_threshold": args.hash_threshold,
+        "seed": args.seed,"aug_mult_train": 0,"hash_threshold": args.hash_threshold,
         "cv_dir": (src if (src/"Train").exists() else (src/f"Cross-validation{args.cv}")).as_posix(),"classes": cls_classes
     }, indent=2, ensure_ascii=False), encoding="utf-8")
     print("GOTOWE ✅", out.as_posix())

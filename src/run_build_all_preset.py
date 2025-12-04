@@ -25,13 +25,13 @@ CWD = r"C:\Users\wojci\source\repos\repos\cropdoc-trainer\src"
 RAPESEED_SRC = r"D:\inzynierka\Datasety\Rzepak\dataverse_files\B.napus_Rom\Mono"
 RAPESEED_OUT = r"D:\inzynierka\Datasety_do_treningu\rapeseed"
 
-WHEAT_SRC_A  = r"D:\inzynierka\Datasety\Zboże\Original_Dataset22"
+WHEAT_SRC_A  = r"D:\inzynierka\Datasety\Zboże\Original_Dataset"
 WHEAT_SRC_B  = r"D:\inzynierka\Datasety\Zboże\wfd_dataset\wfd_dataset"
 WHEAT_CSV    = r"D:\inzynierka\Datasety\Zboże\wfd_dataset_info\data.csv"
 WHEAT_OUT    = r"D:\inzynierka\Datasety_do_treningu\wheat"
 WHEAT_SCHEMA = "A7"   # lub "B5"
 
-POTATO_SRC   = r"D:\inzynierka\Datasety\Ziemniak\ziemniak22"
+POTATO_SRC   = r"D:\inzynierka\Datasety\Ziemniak\ziemniak"
 POTATO_OUT   = r"D:\inzynierka\Datasety_do_treningu\potato"
 
 TOMATO_SRC   = r"D:\inzynierka\Datasety\Pomidor\cross1212"

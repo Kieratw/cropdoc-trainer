@@ -1,0 +1,80 @@
+{
+  "acc": 0.9770992366412213,
+  "f1_macro": 0.9735489942380269,
+  "classes": [
+    "Bacterial_spot227",
+    "Early_blight227",
+    "Late_blight227",
+    "Leaf_Mold227",
+    "Septoria_leaf_spot227",
+    "Target_Spot227",
+    "Tomato_Yellow_Leaf_Curl_Virus227",
+    "Tomato_mosaic_virus227",
+    "Two-spotted_spider_mite227",
+    "healthy227"
+  ],
+  "norm_source": "meta.json",
+  "img_size": 380,
+  "per_class": {
+    "Bacterial_spot227": {
+      "precision": 0.9696969696969697,
+      "recall": 0.8533333333333334,
+      "f1": 0.9078014184397163,
+      "support": 150
+    },
+    "Early_blight227": {
+      "precision": 0.9642857142857143,
+      "recall": 0.9557522123893806,
+      "f1": 0.96,
+      "support": 113
+    },
+    "Late_blight227": {
+      "precision": 0.9875,
+      "recall": 0.9793388429752066,
+      "f1": 0.983402489626556,
+      "support": 242
+    },
+    "Leaf_Mold227": {
+      "precision": 1.0,
+      "recall": 0.9908256880733946,
+      "f1": 0.9953917050691244,
+      "support": 109
+    },
+    "Septoria_leaf_spot227": {
+      "precision": 0.9773755656108597,
+      "recall": 1.0,
+      "f1": 0.988558352402746,
+      "support": 216
+    },
+    "Target_Spot227": {
+      "precision": 0.8685714285714285,
+      "recall": 0.9934640522875817,
+      "f1": 0.926829268292683,
+      "support": 153
+    },
+    "Tomato_Yellow_Leaf_Curl_Virus227": {
+      "precision": 1.0,
+      "recall": 0.9882352941176471,
+      "f1": 0.9940828402366864,
+      "support": 510
+    },
+    "Tomato_mosaic_virus227": {
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0,
+      "support": 41
+    },
+    "Two-spotted_spider_mite227": {
+      "precision": 0.9754098360655737,
+      "recall": 0.9834710743801653,
+      "f1": 0.9794238683127572,
+      "support": 121
+    },
+    "healthy227": {
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0,
+      "support": 179
+    }
+  }
+}

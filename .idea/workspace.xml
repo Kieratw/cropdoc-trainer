@@ -5,10 +5,24 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="3edf6239-8f63-4d53-90b2-2836f7cd82fa" name="Changes" comment="New teacher-student pipeline and ready to use models with metrics">
-      <change afterPath="$PROJECT_DIR$/runs2/potato_teacher/best.pt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/runs2/rapeseed_teacher/best.pt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/runs2/tomato_teacher/best.pt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/runs2/wheat_teacher/best.pt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/eval3.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/train_kd_v2.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/requirements.txt" beforeDir="false" afterPath="$PROJECT_DIR$/requirements.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/build_dataset.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/build_potato.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/build_potato.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/build_rapeseed.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/build_rapeseed.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/build_tomato.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/build_tomato.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/build_wheat.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/build_wheat.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/cropdoc/__init__.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/cropdoc/__main__.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/cropdoc/models.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/cropdoc/train.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/dup_scan.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/eval.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/export_mobile.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/export_mobile.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/run_build_all_preset.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/run_build_all_preset.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -89,7 +103,7 @@
       <recent name="C:\Users\wojci\source\repos\repos\cropdoc-trainer\src" />
     </key>
   </component>
-  <component name="RunManager" selected="Python.eval">
+  <component name="RunManager" selected="Python.eksport">
     <configuration name="app" type="PythonConfigurationType" factoryName="Python">
       <module name="cropdoc-trainer" />
       <option name="ENV_FILES" value="" />
@@ -177,6 +191,16 @@
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <EXTENSION ID="net.ashald.envfile">
+        <option name="IS_ENABLED" value="false" />
+        <option name="IS_SUBST" value="false" />
+        <option name="IS_PATH_MACRO_SUPPORTED" value="false" />
+        <option name="IS_IGNORE_MISSING_FILES" value="false" />
+        <option name="IS_ENABLE_EXPERIMENTAL_INTEGRATIONS" value="false" />
+        <ENTRIES>
+          <ENTRY IS_ENABLED="true" PARSER="runconfig" IS_EXECUTABLE="false" />
+        </ENTRIES>
+      </EXTENSION>
       <option name="SCRIPT_NAME" value="$PROJECT_DIR$/src/run_build_all_preset.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
@@ -201,8 +225,18 @@
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <EXTENSION ID="net.ashald.envfile">
+        <option name="IS_ENABLED" value="false" />
+        <option name="IS_SUBST" value="false" />
+        <option name="IS_PATH_MACRO_SUPPORTED" value="false" />
+        <option name="IS_IGNORE_MISSING_FILES" value="false" />
+        <option name="IS_ENABLE_EXPERIMENTAL_INTEGRATIONS" value="false" />
+        <ENTRIES>
+          <ENTRY IS_ENABLED="true" PARSER="runconfig" IS_EXECUTABLE="false" />
+        </ENTRIES>
+      </EXTENSION>
       <option name="SCRIPT_NAME" value="$PROJECT_DIR$/src/build_rapeseed.py" />
-      <option name="PARAMETERS" value="--src D:\inzynierka\Datasety\Rzepak\dataverse_files\B.napus_Rom --out D:\inzynierka\Datasety_do_treningu\rapeseed" />
+      <option name="PARAMETERS" value="--src D:\inzynierka\Datasety\Rzepak\dataverse_files\B.napus_Rom\Mono --out D:\inzynierka\Datasety_do_treningu\rapeseed" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
       <option name="MODULE_MODE" value="false" />
@@ -273,8 +307,18 @@
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <EXTENSION ID="net.ashald.envfile">
+        <option name="IS_ENABLED" value="false" />
+        <option name="IS_SUBST" value="false" />
+        <option name="IS_PATH_MACRO_SUPPORTED" value="false" />
+        <option name="IS_IGNORE_MISSING_FILES" value="false" />
+        <option name="IS_ENABLE_EXPERIMENTAL_INTEGRATIONS" value="false" />
+        <ENTRIES>
+          <ENTRY IS_ENABLED="true" PARSER="runconfig" IS_EXECUTABLE="false" />
+        </ENTRIES>
+      </EXTENSION>
       <option name="SCRIPT_NAME" value="$PROJECT_DIR$/src/export_mobile.py" />
-      <option name="PARAMETERS" value="--out-assets android/app/src/main/assets --make-dict --model wheat=runs/wheat_dual/final.pt  --model tomato=runs/tomato_dual/final.pt --model potato=runs/potato_dual/final.pt  --model rapeseed=runs/rzepak_dual/final.pt" />
+      <option name="PARAMETERS" value="--ckpt runs3\tomato_student\best.pt    --meta D:\inzynierka\Datasety_do_treningu\tomato\cls\train\s000\meta.json    --out exports2\tomato_student    --softmax" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
       <option name="MODULE_MODE" value="false" />
@@ -297,8 +341,18 @@
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/src/eval2.py" />
-      <option name="PARAMETERS" value="--ckpt runs2\tomato_student_kd_v2\best.pt   --images D:\inzynierka\Datasety_do_treningu\tomato\test_images\cls  --meta   D:\inzynierka\Datasety_do_treningu\tomato\cls\train\s000\meta.json" />
+      <EXTENSION ID="net.ashald.envfile">
+        <option name="IS_ENABLED" value="false" />
+        <option name="IS_SUBST" value="false" />
+        <option name="IS_PATH_MACRO_SUPPORTED" value="false" />
+        <option name="IS_IGNORE_MISSING_FILES" value="false" />
+        <option name="IS_ENABLE_EXPERIMENTAL_INTEGRATIONS" value="false" />
+        <ENTRIES>
+          <ENTRY IS_ENABLED="true" PARSER="runconfig" IS_EXECUTABLE="false" />
+        </ENTRIES>
+      </EXTENSION>
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/src/eval3.py" />
+      <option name="PARAMETERS" value="--ckpt runs3\tomato_student\best.pt   --images D:\inzynierka\Datasety_do_treningu\tomato\test_images\cls     --batch 64 --workers 0 --device cuda --vis_limit 40" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
       <option name="MODULE_MODE" value="false" />
@@ -345,8 +399,18 @@
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/src/train_kd.py" />
-      <option name="PARAMETERS" value="" />
+      <EXTENSION ID="net.ashald.envfile">
+        <option name="IS_ENABLED" value="false" />
+        <option name="IS_SUBST" value="false" />
+        <option name="IS_PATH_MACRO_SUPPORTED" value="false" />
+        <option name="IS_IGNORE_MISSING_FILES" value="false" />
+        <option name="IS_ENABLE_EXPERIMENTAL_INTEGRATIONS" value="false" />
+        <ENTRIES>
+          <ENTRY IS_ENABLED="true" PARSER="runconfig" IS_EXECUTABLE="false" />
+        </ENTRIES>
+      </EXTENSION>
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/src/train_kd_v2.py" />
+      <option name="PARAMETERS" value="--data D:\inzynierka\Datasety_do_treningu\tomato  --mode teacher   --arch_teacher convnext_tiny  --epochs 30   --freeze_epochs 2  --batch 32   --workers 0  --lr 3e-4   --min_lr 1e-6  --backbone_lr_scale 0.1   --label_smoothing 0.1   --ema --amp --balance --aug   --pretrained  --out runs3\tomato_teacher" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
       <option name="MODULE_MODE" value="false" />
@@ -369,8 +433,18 @@
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/src/train_kd.py" />
-      <option name="PARAMETERS" value="--data &quot;D:\inzynierka\Datasety_do_treningu\tomato&quot; --mode teacher --arch_teacher convnext_tiny  --epochs 10 --batch-size 16 --out runs2\tomato_teacher --workers 0" />
+      <EXTENSION ID="net.ashald.envfile">
+        <option name="IS_ENABLED" value="false" />
+        <option name="IS_SUBST" value="false" />
+        <option name="IS_PATH_MACRO_SUPPORTED" value="false" />
+        <option name="IS_IGNORE_MISSING_FILES" value="false" />
+        <option name="IS_ENABLE_EXPERIMENTAL_INTEGRATIONS" value="false" />
+        <ENTRIES>
+          <ENTRY IS_ENABLED="true" PARSER="runconfig" IS_EXECUTABLE="false" />
+        </ENTRIES>
+      </EXTENSION>
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/src/train_kd_v2.py" />
+      <option name="PARAMETERS" value="--data &quot;D:\inzynierka\Datasety_do_treningu\tomato&quot;  --teacher_ckpt runs3\tomato_teacher\best.pt  --mode student --arch_student mobilenetv3_large  --epochs 30  --freeze_epochs 5 --batch 16  --lr 2e-4  --min_lr 1e-6 --backbone_lr_scale 0.05 --label_smoothing 0.05   --ema --amp --balance --aug  --kd_alpha 0.8 --kd_warmup_epochs 3   --kd_temp 4.0  --pretrained --workers 0 --out runs3\tomato_student" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
       <option name="MODULE_MODE" value="false" />
@@ -441,6 +515,16 @@
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <EXTENSION ID="net.ashald.envfile">
+        <option name="IS_ENABLED" value="false" />
+        <option name="IS_SUBST" value="false" />
+        <option name="IS_PATH_MACRO_SUPPORTED" value="false" />
+        <option name="IS_IGNORE_MISSING_FILES" value="false" />
+        <option name="IS_ENABLE_EXPERIMENTAL_INTEGRATIONS" value="false" />
+        <ENTRIES>
+          <ENTRY IS_ENABLED="true" PARSER="runconfig" IS_EXECUTABLE="false" />
+        </ENTRIES>
+      </EXTENSION>
       <option name="SCRIPT_NAME" value="$PROJECT_DIR$/src/train_kd.py" />
       <option name="PARAMETERS" value="--data D:\inzynierka\Datasety_do_treningu\tomato --mode student --arch_student mobilenetv3_large    --teacher_ckpt runs2\tomato_teacher\best.pt    --epochs 30 --freeze_epochs 5    --batch 16 --workers 0    --lr 1.5e-4 --min_lr 1e-6    --kd_alpha 0.5 --kd_warmup_epochs 5 --kd_temp 3.0    --backbone_lr_scale 0.05    --balance --ema --amp --pretrained  --aug  --out runs2\tomato_student_kd_v2" />
       <option name="SHOW_COMMAND_LINE" value="false" />
@@ -527,7 +611,23 @@
       <workItem from="1762497811193" duration="16000" />
       <workItem from="1762533694809" duration="1154000" />
       <workItem from="1762782607823" duration="4874000" />
-      <workItem from="1762895091151" duration="328000" />
+      <workItem from="1762895091151" duration="7826000" />
+      <workItem from="1762981275792" duration="3167000" />
+      <workItem from="1763040430401" duration="259000" />
+      <workItem from="1763041218510" duration="3803000" />
+      <workItem from="1763299431224" duration="6000" />
+      <workItem from="1763518685065" duration="204000" />
+      <workItem from="1764254897712" duration="3817000" />
+      <workItem from="1764348200446" duration="1653000" />
+      <workItem from="1764546110613" duration="1931000" />
+      <workItem from="1764591563457" duration="19153000" />
+      <workItem from="1764704597855" duration="492000" />
+      <workItem from="1764719836255" duration="3493000" />
+      <workItem from="1764756687228" duration="1475000" />
+      <workItem from="1764772752976" duration="2899000" />
+      <workItem from="1764781622984" duration="9107000" />
+      <workItem from="1764856598898" duration="10852000" />
+      <workItem from="1764885367719" duration="223000" />
     </task>
     <task id="LOCAL-00001" summary="Add dual mod">
       <option name="closed" value="true" />
@@ -593,7 +693,15 @@
       <option name="project" value="LOCAL" />
       <updated>1762895404026</updated>
     </task>
-    <option name="localTasksCounter" value="9" />
+    <task id="LOCAL-00009" summary="New teacher-student pipeline and ready to use models with metrics">
+      <option name="closed" value="true" />
+      <created>1762895463784</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1762895463784</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -624,23 +732,31 @@
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/cropdoc_trainer$inspect.coverage" NAME="inspect Coverage Results" MODIFIED="1760438085140" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
     <SUITE FILE_PATH="coverage/cropdoc_trainer$build_rzepak.coverage" NAME="build rzepak Coverage Results" MODIFIED="1760303913140" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="C:\Users\wojci\source\repos\repos\cropdoc-trainer" />
-    <SUITE FILE_PATH="coverage/cropdoc_trainer$build_datasets.coverage" NAME="build_datasets Coverage Results" MODIFIED="1761514137622" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
     <SUITE FILE_PATH="coverage/cropdoc_trainer$train_tomato.coverage" NAME="train tomato Coverage Results" MODIFIED="1761598783508" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
+    <SUITE FILE_PATH="coverage/cropdoc_trainer$build_datasets.coverage" NAME="build_datasets Coverage Results" MODIFIED="1764635578970" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
     <SUITE FILE_PATH="coverage/cropdoc_trainer$cropdoc.coverage" NAME="cropdoc Coverage Results" MODIFIED="1759339886714" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
     <SUITE FILE_PATH="coverage/cropdoc_trainer$app.coverage" NAME="app Coverage Results" MODIFIED="1760873690511" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
     <SUITE FILE_PATH="coverage/cropdoc_trainer$delete.coverage" NAME="delete Coverage Results" MODIFIED="1761457990709" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
     <SUITE FILE_PATH="coverage/cropdoc_trainer$build_potato.coverage" NAME="build potato Coverage Results" MODIFIED="1761597634993" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
     <SUITE FILE_PATH="coverage/cropdoc_trainer$scan.coverage" NAME="scan Coverage Results" MODIFIED="1761455935486" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
-    <SUITE FILE_PATH="coverage/cropdoc_trainer$build.coverage" NAME="build Coverage Results" MODIFIED="1762260365560" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
+    <SUITE FILE_PATH="coverage/cropdoc_trainer$build.coverage" NAME="build Coverage Results" MODIFIED="1764756769811" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
     <SUITE FILE_PATH="coverage/cropdoc_trainer$build_wheat.coverage" NAME="build_wheat Coverage Results" MODIFIED="1761489153117" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
     <SUITE FILE_PATH="coverage/cropdoc_trainer$train_kd.coverage" NAME="train_kd Coverage Results" MODIFIED="1762534244760" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
     <SUITE FILE_PATH="coverage/cropdoc_trainer$train.coverage" NAME="train Coverage Results" MODIFIED="1759096359370" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="C:\Users\wojci\source\repos\repos\cropdoc-trainer" />
-    <SUITE FILE_PATH="coverage/cropdoc_trainer$train_potato.coverage" NAME="train potato Coverage Results" MODIFIED="1761604613412" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
     <SUITE FILE_PATH="coverage/cropdoc_trainer$build_tomato.coverage" NAME="build tomato Coverage Results" MODIFIED="1762261539756" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
+    <SUITE FILE_PATH="coverage/cropdoc_trainer$train_potato.coverage" NAME="train potato Coverage Results" MODIFIED="1764856898059" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
     <SUITE FILE_PATH="coverage/cropdoc_trainer$train_wheat.coverage" NAME="train wheat Coverage Results" MODIFIED="1761492367373" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
-    <SUITE FILE_PATH="coverage/cropdoc_trainer$eval.coverage" NAME="eval Coverage Results" MODIFIED="1762876080225" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
+    <SUITE FILE_PATH="coverage/cropdoc_trainer$eval.coverage" NAME="eval Coverage Results" MODIFIED="1764879421992" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
     <SUITE FILE_PATH="coverage/cropdoc_trainer$test_models.coverage" NAME="test models Coverage Results" MODIFIED="1760450684656" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
-    <SUITE FILE_PATH="coverage/cropdoc_trainer$eksport.coverage" NAME="eksport Coverage Results" MODIFIED="1761845877096" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
-    <SUITE FILE_PATH="coverage/cropdoc_trainer$train_rapeseed.coverage" NAME="train rapeseed Coverage Results" MODIFIED="1762474342813" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="C:\Users\wojci\source\repos\repos\cropdoc-trainer" />
+    <SUITE FILE_PATH="coverage/cropdoc_trainer$eksport.coverage" NAME="eksport Coverage Results" MODIFIED="1764879626755" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
+    <SUITE FILE_PATH="coverage/cropdoc_trainer$train_rapeseed.coverage" NAME="train rapeseed Coverage Results" MODIFIED="1764869813578" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="C:\Users\wojci\source\repos\repos\cropdoc-trainer" />
+  </component>
+  <component name="github-copilot-workspace">
+    <instructionFileLocations>
+      <option value=".github/instructions" />
+    </instructionFileLocations>
+    <promptFileLocations>
+      <option value=".github/prompts" />
+    </promptFileLocations>
   </component>
 </project>

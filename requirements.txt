@@ -1,7 +1,7 @@
+numpy
 torch
 torchvision
-timm
-tqdm
 scikit-learn
+tqdm
+Pillow
 matplotlib
-pillow

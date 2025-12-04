@@ -1,0 +1,16 @@
+                                  precision    recall  f1-score   support
+
+               Bacterial_spot227       0.97      0.85      0.91       150
+                 Early_blight227       0.96      0.96      0.96       113
+                  Late_blight227       0.99      0.98      0.98       242
+                    Leaf_Mold227       1.00      0.99      1.00       109
+           Septoria_leaf_spot227       0.98      1.00      0.99       216
+                  Target_Spot227       0.87      0.99      0.93       153
+Tomato_Yellow_Leaf_Curl_Virus227       1.00      0.99      0.99       510
+          Tomato_mosaic_virus227       1.00      1.00      1.00        41
+      Two-spotted_spider_mite227       0.98      0.98      0.98       121
+                      healthy227       1.00      1.00      1.00       179
+
+                        accuracy                           0.98      1834
+                       macro avg       0.97      0.97      0.97      1834
+                    weighted avg       0.98      0.98      0.98      1834

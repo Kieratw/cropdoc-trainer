@@ -1,0 +1,26 @@
+{
+  "classes": [
+    "Healthy",
+    "LeafBlight",
+    "Rust",
+    "PowderyMildew",
+    "FusariumFootRot",
+    "WheatBlast",
+    "BlackPoint"
+  ],
+  "arch": "mobilenetv3_large",
+  "img_size": 380,
+  "normalization_source": "meta.json",
+  "mean": [
+    0.46120548248291016,
+    0.48289307951927185,
+    0.3463904559612274
+  ],
+  "std": [
+    0.21643029153347015,
+    0.1988399177789688,
+    0.211811825633049
+  ],
+  "outputs": "probs",
+  "mobile_model": "oilseed_rape_v2.ptl"
+}

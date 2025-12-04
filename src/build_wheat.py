@@ -14,7 +14,7 @@ IMG_SIZE = 380
 VAL_RATIO = 0.15
 TEST_RATIO = 0.10
 SEED = 42
-AUG_MULT = 2
+AUG_MULT = 0         # offline augment WYŁĄCZONY
 HASH_THRESHOLD = 2   # 0 identyczne, 2 rozsądnie, 4 agresywnie
 
 # ===== NO-LEAK GUARD (bytes + aHash) =====
@@ -289,6 +289,7 @@ def to_records(pairs: List[Tuple[Path,str]], classes: List[str], aug_mult: int, 
         arr = load_img_square(p, IMG_SIZE)
         if arr is None: pbar.update(1); continue
         y = c2i[c]; out.append((arr,y)); pbar.update(1)
+        # aug_mult będzie 0 dla train → pętla nie ruszy
         for _ in range(max(0,aug_mult)):
             img = Image.fromarray(np.transpose(arr,(1,2,0)))
             if rng.random()<0.6: img = img.rotate(rng.uniform(-10,10), resample=Image.BICUBIC, expand=False, fillcolor=(0,0,0))
@@ -379,7 +380,7 @@ def main():
     ap.add_argument("--seed", type=int, default=SEED)
     ap.add_argument("--val-ratio","--val_ratio", dest="val_ratio", type=float, default=VAL_RATIO)
     ap.add_argument("--test-ratio","--test_ratio", dest="test_ratio", type=float, default=TEST_RATIO)
-    ap.add_argument("--aug-mult","--aug_mult", dest="aug_mult", type=int, default=AUG_MULT)
+    ap.add_argument("--aug-mult","--aug_mult", dest="aug_mult", type=int, default=AUG_MULT)  # ignorowane dla train
     ap.add_argument("--hash-threshold","--hash_threshold", dest="hash_threshold", type=int, default=HASH_THRESHOLD)
     ap.add_argument("--jpg_quality", type=int, default=95)
     ap.add_argument("--schema", choices=["A7","B5"], default="A7")
@@ -428,10 +429,10 @@ def main():
     dg.add_pairs(tr + va); te, _ = dg.filter_test(te)
     print(f"Rozmiary: train={len(tr)}  val={len(va)}  test={len(te)}")
 
-    # 5) packs
+    # 5) packs – train BEZ offline augmentu
     (out_root/"cls").mkdir(parents=True, exist_ok=True)
-    write_pack(out_root/"cls"/"train", "train", to_records(tr, classes, args.aug_mult, args.seed, "train(cls)"), classes)
-    write_pack(out_root/"cls"/"val",   "val",   to_records(va, classes, 0,             args.seed, "val(cls)"),   classes)
+    write_pack(out_root/"cls"/"train", "train", to_records(tr, classes, 0,           args.seed, "train(cls)"), classes)
+    write_pack(out_root/"cls"/"val",   "val",   to_records(va, classes, 0,           args.seed, "val(cls)"),   classes)
 
     # 6) test JPG
     if te:
@@ -447,10 +448,11 @@ def main():
     (out_root/"builder_config.json").write_text(json.dumps({
         "dataset":"wheat","schema": args.schema,"classes": classes,"img_size": IMG_SIZE,
         "seed": args.seed,"val_ratio": args.val_ratio,"test_ratio": args.test_ratio,
-        "aug_mult": args.aug_mult, "hash_threshold": args.hash_threshold,
+        "aug_mult": 0, "hash_threshold": args.hash_threshold,
         "notes":[
             "CSV: single-col albo one-hot. Dopasowanie nazw: ostatni '_', stem, znormalizowane.",
-            "NO-LEAK: bytes+phash z progowaniem i odszumieniem w teście."
+            "NO-LEAK: bytes+phash z progowaniem i odszumieniem w teście.",
+            "Brak augmentacji offline; augmentacje tylko w trakcie treningu."
         ],
         "diagnostic": diag
     }, indent=2, ensure_ascii=False), encoding="utf-8")

@@ -12,7 +12,7 @@ VAL_RATIO = 0.15
 TEST_RATIO = 0.10
 SEED = 42
 HASH_THRESHOLD = 3
-AUG_MULT = 0
+AUG_MULT = 0  # offline augment WYŁĄCZONY
 
 def _read_bytes_for_hash(p: Path):
     try:
@@ -59,7 +59,7 @@ class DedupGuard:
             if h is not None: self.idx_ph.append(h)
     def filter_test(self, test_pairs: List[Tuple[Path,str]]):
         kept, removed = [], []
-        for p, c in test_pairs:
+        for p,c in test_pairs:
             pp = Path(p)
             if not pp.exists(): removed.append((p,c,"missing")); continue
             s = _sha1(pp); h = _ahash64(pp)
@@ -107,12 +107,14 @@ def load_img_square(path: Path, size: int) -> Optional[np.ndarray]:
         return None
 
 def to_records(pairs: List[Tuple[Path,str]], classes: List[str], aug_mult: int, seed: int, split_name: str):
+    # aug_mult jest zostawiony w sygnaturze, ale będzie zawsze 0 przy train
     rng = random.Random(seed); c2i = {c:i for i,c in enumerate(classes)}; out = []
     pbar = tqdm(total=len(pairs)*(1+max(0,aug_mult)), desc=f"build {split_name}", unit="img")
     for p,c in pairs:
         arr = load_img_square(p, IMG_SIZE)
         if arr is None: pbar.update(1); continue
         y = c2i[c]; out.append((arr,y)); pbar.update(1)
+        # brak offline augmentacji: pętla dla aug_mult=0 nic nie robi
         for _ in range(max(0,aug_mult)):
             img = Image.fromarray(np.transpose(arr,(1,2,0)))
             if rng.random()<0.6: img = img.rotate(rng.uniform(-10,10), resample=Image.BICUBIC, expand=False, fillcolor=(0,0,0))
@@ -214,7 +216,7 @@ def main():
     ap.add_argument("--test-ratio", type=float, default=TEST_RATIO)
     ap.add_argument("--img-size", type=int, default=IMG_SIZE)
     ap.add_argument("--seed", type=int, default=SEED)
-    ap.add_argument("--aug-mult", type=int, default=AUG_MULT)
+    ap.add_argument("--aug-mult", type=int, default=AUG_MULT)  # zostawione, ale ignorowane dla train
     ap.add_argument("--hash-threshold", type=int, default=HASH_THRESHOLD)
     args=ap.parse_args()
 
@@ -229,14 +231,15 @@ def main():
     dg=DedupGuard(threshold=args.hash_threshold, within_test=True, log_csv=out/"_logs"/"dedup_potato_cls.csv")
     dg.add_pairs(tr+va); te,_=dg.filter_test(te)
 
-    write_pack(out/"cls"/"train","train", to_records(tr, classes, args.aug_mult, args.seed, "train(cls)"), classes)
-    write_pack(out/"cls"/"val","val",     to_records(va, classes, 0,             args.seed, "val(cls)"),   classes)
+    # TU: train bez augmentacji offline
+    write_pack(out/"cls"/"train","train", to_records(tr, classes, 0,           args.seed, "train(cls)"), classes)
+    write_pack(out/"cls"/"val","val",     to_records(va, classes, 0,           args.seed, "val(cls)"),   classes)
     copy_test_images(te, test_img_cls)
 
     write_ui_meta(out)
     (out/"builder_config.json").write_text(json.dumps({
         "dataset":"potato","img_size": IMG_SIZE,"val_ratio": args.val_ratio,"test_ratio": args.test_ratio,
-        "seed": args.seed,"aug_mult_train": args.aug_mult,"hash_threshold": args.hash_threshold
+        "seed": args.seed,"aug_mult_train": 0,"hash_threshold": args.hash_threshold
     }, indent=2, ensure_ascii=False), encoding="utf-8")
     print("GOTOWE ✅", out.as_posix())
 

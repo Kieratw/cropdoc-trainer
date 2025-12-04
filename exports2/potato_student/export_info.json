@@ -1,0 +1,22 @@
+{
+  "classes": [
+    "earlyblt",
+    "healthy",
+    "lateblt"
+  ],
+  "arch": "mobilenetv3_large",
+  "img_size": 380,
+  "normalization_source": "meta.json",
+  "mean": [
+    0.5242528915405273,
+    0.6668122410774231,
+    0.22512681782245636
+  ],
+  "std": [
+    0.14277015626430511,
+    0.1456470936536789,
+    0.1758599579334259
+  ],
+  "outputs": "probs",
+  "mobile_model": "oilseed_rape_v2.ptl"
+}
