@@ -4,25 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="3edf6239-8f63-4d53-90b2-2836f7cd82fa" name="Changes" comment="New teacher-student pipeline and ready to use models with metrics">
-      <change afterPath="$PROJECT_DIR$/src/eval3.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/train_kd_v2.py" afterDir="false" />
+    <list default="true" id="3edf6239-8f63-4d53-90b2-2836f7cd82fa" name="Changes" comment="Remove image augmentation from all crop builders and Moved all augmentations to the training pipeline, retrained the models, and re-exported the updated weights.">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/requirements.txt" beforeDir="false" afterPath="$PROJECT_DIR$/requirements.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/build_dataset.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/build_potato.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/build_potato.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/build_rapeseed.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/build_rapeseed.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/build_tomato.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/build_tomato.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/build_wheat.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/build_wheat.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/cropdoc/__init__.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/cropdoc/__main__.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/cropdoc/models.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/cropdoc/train.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/dup_scan.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/eval.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/export_mobile.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/export_mobile.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/run_build_all_preset.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/run_build_all_preset.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -627,7 +610,11 @@
       <workItem from="1764772752976" duration="2899000" />
       <workItem from="1764781622984" duration="9107000" />
       <workItem from="1764856598898" duration="10852000" />
-      <workItem from="1764885367719" duration="223000" />
+      <workItem from="1764885367719" duration="1159000" />
+      <workItem from="1765208558261" duration="8000" />
+      <workItem from="1765320029171" duration="1076000" />
+      <workItem from="1765326299122" duration="660000" />
+      <workItem from="1765362807429" duration="3050000" />
     </task>
     <task id="LOCAL-00001" summary="Add dual mod">
       <option name="closed" value="true" />
@@ -701,7 +688,15 @@
       <option name="project" value="LOCAL" />
       <updated>1762895463784</updated>
     </task>
-    <option name="localTasksCounter" value="10" />
+    <task id="LOCAL-00010" summary="Remove image augmentation from all crop builders and Moved all augmentations to the training pipeline, retrained the models, and re-exported the updated weights.">
+      <option name="closed" value="true" />
+      <created>1764885871619</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1764885871619</updated>
+    </task>
+    <option name="localTasksCounter" value="11" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -727,7 +722,8 @@
     <MESSAGE value="Add training files for tomato potato rapeseed and wheat with bestmodels etc" />
     <MESSAGE value="Working with new pipeline for better result" />
     <MESSAGE value="New teacher-student pipeline and ready to use models with metrics" />
-    <option name="LAST_COMMIT_MESSAGE" value="New teacher-student pipeline and ready to use models with metrics" />
+    <MESSAGE value="Remove image augmentation from all crop builders and Moved all augmentations to the training pipeline, retrained the models, and re-exported the updated weights." />
+    <option name="LAST_COMMIT_MESSAGE" value="Remove image augmentation from all crop builders and Moved all augmentations to the training pipeline, retrained the models, and re-exported the updated weights." />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/cropdoc_trainer$inspect.coverage" NAME="inspect Coverage Results" MODIFIED="1760438085140" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />

@@ -1,5 +1,3 @@
-#!/usr/bin/env python3
-# -*- coding: utf-8 -*-
 import sys, os, time, shlex, subprocess
 from pathlib import Path
 from concurrent.futures import ThreadPoolExecutor, as_completed

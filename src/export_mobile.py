@@ -8,11 +8,7 @@ import torch.nn.functional as F
 import torchvision.models as tvm
 from torch.utils.mobile_optimizer import optimize_for_mobile
 
-# ---- (Skopiuj te funkcje ze starego skryptu BEZ ZMIAN) ----
-# 1. create_mobilenetv3_large
-# 2. try_autodetect_meta
-# 3. load_norm_from_meta
-# 4. WrappedClassifier
+
 
 IMAGENET_MEAN = [0.485, 0.456, 0.406]
 IMAGENET_STD = [0.229, 0.224, 0.225]

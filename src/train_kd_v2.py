@@ -1,14 +1,3 @@
-# train_kd.py
-# Knowledge Distillation na memmap packach (cls/train/s000 i cls/val/s000).
-# Funkcje:
-# - pretrained backbone, freeze→unfreeze
-# - param groups: mniejszy LR dla backbone
-# - KD z ramp-upem alpha, temperatura T
-# - WeightedRandomSampler do balansu klas
-# - augmentacje v2 na CPU (train), brak augmentów na val
-# - AMP, EMA, warmup+cosine LR
-# - zapis best.pt wg F1(macro) na walidacji
-
 import argparse
 import json
 import math
