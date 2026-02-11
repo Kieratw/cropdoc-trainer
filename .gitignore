@@ -1,0 +1,30 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+dist/
+build/
+
+# Virtual environment
+.venv/
+venv/
+env/
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# OS
+Thumbs.db
+.DS_Store
+
+# PyTorch checkpoints & models (duże pliki binarne)
+*.pt
+*.ptl
+*.pth
+*.onnx
+
+# Build logs
+src/build_logs/
