@@ -1,0 +1,26 @@
+{
+  "classes": [
+    "Healthy",
+    "LeafBlight",
+    "Rust",
+    "PowderyMildew",
+    "FusariumFootRot",
+    "WheatBlast",
+    "BlackPoint"
+  ],
+  "arch": "mobilenetv3_large",
+  "img_size": 380,
+  "normalization_source": "meta.json",
+  "mean": [
+    0.4515708088874817,
+    0.47292986512184143,
+    0.33847513794898987
+  ],
+  "std": [
+    0.22269025444984436,
+    0.2067723572254181,
+    0.21476466953754425
+  ],
+  "outputs": "probs",
+  "mobile_model": "model_mobile.ptl"
+}

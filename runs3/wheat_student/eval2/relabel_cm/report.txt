@@ -1,0 +1,13 @@
+              precision    recall  f1-score   support
+
+      Zdrowe     0.8611    0.8611    0.8611        36
+  Septorioza     0.9091    0.7692    0.8333        39
+        Rdza     0.8788    0.9134    0.8958       127
+    Mączniak     0.7500    0.7895    0.7692        19
+   Fuzarioza     1.0000    1.0000    1.0000        25
+      Zaraza     1.0000    1.0000    1.0000        14
+Czarna plam.     1.0000    1.0000    1.0000        14
+
+    accuracy                         0.8942       274
+   macro avg     0.9141    0.9047    0.9085       274
+weighted avg     0.8953    0.8942    0.8937       274

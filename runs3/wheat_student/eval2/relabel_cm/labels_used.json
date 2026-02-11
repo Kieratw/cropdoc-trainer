@@ -1,0 +1,22 @@
+{
+  "classes_original": [
+    "Healthy",
+    "LeafBlight",
+    "Rust",
+    "PowderyMildew",
+    "FusariumFootRot",
+    "WheatBlast",
+    "BlackPoint"
+  ],
+  "labels_display": [
+    "Zdrowe",
+    "Septorioza",
+    "Rdza",
+    "Mączniak",
+    "Fuzarioza",
+    "Zaraza",
+    "Czarna plam."
+  ],
+  "preds_path": "runs3\\wheat_student\\eval2\\preds_raw.jsonl",
+  "classes_path": "runs3\\wheat_student\\eval2\\classes.json"
+}

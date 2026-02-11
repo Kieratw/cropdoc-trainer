@@ -1,0 +1,42 @@
+{
+  "classes": [
+    "Bacterial_spot227",
+    "Early_blight227",
+    "Late_blight227",
+    "Leaf_Mold227",
+    "Septoria_leaf_spot227",
+    "Target_Spot227",
+    "Tomato_Yellow_Leaf_Curl_Virus227",
+    "Tomato_mosaic_virus227",
+    "Two-spotted_spider_mite227",
+    "healthy227"
+  ],
+  "class_to_idx": {
+    "Bacterial_spot227": 0,
+    "Early_blight227": 1,
+    "Late_blight227": 2,
+    "Leaf_Mold227": 3,
+    "Septoria_leaf_spot227": 4,
+    "Target_Spot227": 5,
+    "Tomato_Yellow_Leaf_Curl_Virus227": 6,
+    "Tomato_mosaic_virus227": 7,
+    "Two-spotted_spider_mite227": 8,
+    "healthy227": 9
+  },
+  "idx_to_class": {
+    "0": "Bacterial_spot227",
+    "1": "Early_blight227",
+    "2": "Late_blight227",
+    "3": "Leaf_Mold227",
+    "4": "Septoria_leaf_spot227",
+    "5": "Target_Spot227",
+    "6": "Tomato_Yellow_Leaf_Curl_Virus227",
+    "7": "Tomato_mosaic_virus227",
+    "8": "Two-spotted_spider_mite227",
+    "9": "healthy227"
+  },
+  "norm_source": "meta.json",
+  "img_size": 380,
+  "arch": "mobilenetv3_large",
+  "ckpt": "runs3\\tomato_student\\best.pt"
+}

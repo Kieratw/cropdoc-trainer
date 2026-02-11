@@ -1,0 +1,83 @@
+[
+  {
+    "name": "potato",
+    "dataset": "potato",
+    "schema": null,
+    "classes": [
+      "earlyblt",
+      "healthy",
+      "lateblt"
+    ],
+    "num_classes_total": 3,
+    "num_disease_classes": 2,
+    "images_train": 44911,
+    "images_val": 7925,
+    "images_test": 1332,
+    "images_total": 54168
+  },
+  {
+    "name": "rapeseed",
+    "dataset": "rapeseed",
+    "schema": "hilo",
+    "classes": [
+      "Alt",
+      "Big",
+      "Bot",
+      "Mac",
+      "Mil",
+      "Myc",
+      "Pse",
+      "Xan",
+      "healthy"
+    ],
+    "num_classes_total": 9,
+    "num_disease_classes": 8,
+    "images_train": 6005,
+    "images_val": 1060,
+    "images_test": 783,
+    "images_total": 7848
+  },
+  {
+    "name": "tomato",
+    "dataset": "tomato",
+    "schema": null,
+    "classes": [
+      "Bacterial_spot227",
+      "Early_blight227",
+      "Late_blight227",
+      "Leaf_Mold227",
+      "Septoria_leaf_spot227",
+      "Target_Spot227",
+      "Tomato_Yellow_Leaf_Curl_Virus227",
+      "Tomato_mosaic_virus227",
+      "Two-spotted_spider_mite227",
+      "healthy227"
+    ],
+    "num_classes_total": 10,
+    "num_disease_classes": 9,
+    "images_train": 9877,
+    "images_val": 1743,
+    "images_test": 1834,
+    "images_total": 13454
+  },
+  {
+    "name": "wheat",
+    "dataset": "wheat",
+    "schema": "A7",
+    "classes": [
+      "Healthy",
+      "LeafBlight",
+      "Rust",
+      "PowderyMildew",
+      "FusariumFootRot",
+      "WheatBlast",
+      "BlackPoint"
+    ],
+    "num_classes_total": 7,
+    "num_disease_classes": 6,
+    "images_train": 2791,
+    "images_val": 493,
+    "images_test": 274,
+    "images_total": 3558
+  }
+]

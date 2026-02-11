@@ -1,0 +1,13 @@
+{
+  "classes": [
+    "Healthy",
+    "LeafBlight",
+    "Rust",
+    "PowderyMildew",
+    "FusariumFootRot",
+    "WheatBlast",
+    "BlackPoint"
+  ],
+  "healthy_idx": 0,
+  "img_size": 256
+}

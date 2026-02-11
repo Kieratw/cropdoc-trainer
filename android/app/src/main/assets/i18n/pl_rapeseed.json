@@ -1,0 +1,45 @@
+{
+  "translation": {
+    "healthy": "zdrowa",
+    "Syl": "zdrowa (bez objawów)",
+
+    "Mac": "sucha zgnilizna kapustnych (Phoma)",
+    "Big": "sucha zgnilizna kapustnych (Phoma)",
+
+    "Alt": "alternarioza / czerń krzyżowych",
+
+    "Scl": "zgnilizna twardzikowa",
+
+    "Ery": "mączniak",
+    "Hya": "mączniak",
+
+    "Pse": "plamistości liści",
+    "Myc": "plamistości liści",
+
+    "Cyl": "cylindrosporioza (light leaf spot)",
+
+    "Vir": "wirus",
+    "Ins": "uszkodzenia przez szkodniki",
+    "Ntr": "fitotoksyczność / uszkodzenia nawożeniowe",
+
+    "Bot": "szara pleśń (Botrytis)",
+    "Mil": "mączniak",
+    "Xan": "bakteryjna kanciasta plamistość (Xanthomonas)"
+  },
+  "display_order": [
+    "Mac",
+    "Big",
+    "Alt",
+    "Scl",
+    "Ery",
+    "Hya",
+    "Pse",
+    "Myc",
+    "Cyl",
+    "Vir",
+    "Ins",
+    "Ntr",
+    "Syl",
+    "healthy"
+  ]
+}

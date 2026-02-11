@@ -1,0 +1,22 @@
+{
+  "translation": {
+    "healthy": "zdrowa",
+    "Healthy": "zdrowa",
+    "PowderyMildew": "mączniak prawdziwy",
+    "Rust": "rdza (żółta/brunatna)",
+    "LeafBlight": "DTR / brunatna plamistość liści",
+    "FusariumFootRot": "fuzaryjna zgorzel podstawy źdźbła",
+    "WheatBlast": "blast pszenicy",
+    "BlackPoint": "czarna końcówka ziarna"
+  },
+  "display_order": [
+    "PowderyMildew",
+    "Rust",
+    "LeafBlight",
+    "FusariumFootRot",
+    "BlackPoint",
+    "WheatBlast",
+    "healthy",
+    "Healthy"
+  ]
+}

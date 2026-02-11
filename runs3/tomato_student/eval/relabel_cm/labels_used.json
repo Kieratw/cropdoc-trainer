@@ -1,0 +1,28 @@
+{
+  "classes_original": [
+    "Bacterial_spot227",
+    "Early_blight227",
+    "Late_blight227",
+    "Leaf_Mold227",
+    "Septoria_leaf_spot227",
+    "Target_Spot227",
+    "Tomato_Yellow_Leaf_Curl_Virus227",
+    "Tomato_mosaic_virus227",
+    "Two-spotted_spider_mite227",
+    "healthy227"
+  ],
+  "labels_display": [
+    "Bacterial_spot227",
+    "Early_blight227",
+    "Late_blight227",
+    "Leaf_Mold227",
+    "Septoria_leaf_spot227",
+    "Target_Spot227",
+    "Tomato_Yellow_Leaf_Curl_Virus227",
+    "Tomato_mosaic_virus227",
+    "Two-spotted_spider_mite227",
+    "healthy227"
+  ],
+  "preds_path": "runs3\\tomato_student\\eval\\preds_raw.jsonl",
+  "classes_path": "runs3\\tomato_student\\eval\\classes.json"
+}

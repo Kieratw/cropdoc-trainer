@@ -1,0 +1,33 @@
+{
+  "classes": [
+    "Healthy",
+    "LeafBlight",
+    "Rust",
+    "PowderyMildew",
+    "FusariumFootRot",
+    "WheatBlast",
+    "BlackPoint"
+  ],
+  "class_to_idx": {
+    "Healthy": 0,
+    "LeafBlight": 1,
+    "Rust": 2,
+    "PowderyMildew": 3,
+    "FusariumFootRot": 4,
+    "WheatBlast": 5,
+    "BlackPoint": 6
+  },
+  "idx_to_class": {
+    "0": "Healthy",
+    "1": "LeafBlight",
+    "2": "Rust",
+    "3": "PowderyMildew",
+    "4": "FusariumFootRot",
+    "5": "WheatBlast",
+    "6": "BlackPoint"
+  },
+  "norm_source": "meta.json",
+  "img_size": 380,
+  "arch": "mobilenetv3_large",
+  "ckpt": "runs3\\wheat_student\\best.pt"
+}

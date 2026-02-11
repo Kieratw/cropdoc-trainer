@@ -4,8 +4,26 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="3edf6239-8f63-4d53-90b2-2836f7cd82fa" name="Changes" comment="Remove image augmentation from all crop builders and Moved all augmentations to the training pipeline, retrained the models, and re-exported the updated weights.">
+    <list default="true" id="3edf6239-8f63-4d53-90b2-2836f7cd82fa" name="Changes" comment="small changes">
+      <change afterPath="$PROJECT_DIR$/src/cm_from_preds_raw.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/dataset_stats.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/eval3_tta.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/runs3/rapeseed_student/eval/cm_counts.png" beforeDir="false" afterPath="$PROJECT_DIR$/runs3/rapeseed_student/eval/cm_counts.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/runs3/rapeseed_student/eval/cm_norm.png" beforeDir="false" afterPath="$PROJECT_DIR$/runs3/rapeseed_student/eval/cm_norm.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/runs3/rapeseed_student/eval/correct_examples.png" beforeDir="false" afterPath="$PROJECT_DIR$/runs3/rapeseed_student/eval/correct_examples.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/runs3/rapeseed_student/eval/metrics.json" beforeDir="false" afterPath="$PROJECT_DIR$/runs3/rapeseed_student/eval/metrics.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/runs3/rapeseed_student/eval/misclassified_examples.png" beforeDir="false" afterPath="$PROJECT_DIR$/runs3/rapeseed_student/eval/misclassified_examples.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/runs3/rapeseed_student/eval/preds.csv" beforeDir="false" afterPath="$PROJECT_DIR$/runs3/rapeseed_student/eval/preds.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/runs3/rapeseed_student/eval/report.txt" beforeDir="false" afterPath="$PROJECT_DIR$/runs3/rapeseed_student/eval/report.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/runs3/tomato_student/eval/cm_counts.png" beforeDir="false" afterPath="$PROJECT_DIR$/runs3/tomato_student/eval/cm_counts.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/runs3/tomato_student/eval/cm_norm.png" beforeDir="false" afterPath="$PROJECT_DIR$/runs3/tomato_student/eval/cm_norm.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/runs3/tomato_student/eval/correct_examples.png" beforeDir="false" afterPath="$PROJECT_DIR$/runs3/tomato_student/eval/correct_examples.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/runs3/tomato_student/eval/metrics.json" beforeDir="false" afterPath="$PROJECT_DIR$/runs3/tomato_student/eval/metrics.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/runs3/tomato_student/eval/misclassified_examples.png" beforeDir="false" afterPath="$PROJECT_DIR$/runs3/tomato_student/eval/misclassified_examples.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/runs3/tomato_student/eval/preds.csv" beforeDir="false" afterPath="$PROJECT_DIR$/runs3/tomato_student/eval/preds.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/runs3/tomato_student/eval/report.txt" beforeDir="false" afterPath="$PROJECT_DIR$/runs3/tomato_student/eval/report.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/eval3.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/eval3.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -53,6 +71,7 @@
     &quot;Python.build_datasets.executor&quot;: &quot;Run&quot;,
     &quot;Python.build_wheat.executor&quot;: &quot;Run&quot;,
     &quot;Python.cropdoc.executor&quot;: &quot;Run&quot;,
+    &quot;Python.dataset.executor&quot;: &quot;Run&quot;,
     &quot;Python.delete.executor&quot;: &quot;Run&quot;,
     &quot;Python.eksport.executor&quot;: &quot;Run&quot;,
     &quot;Python.eval.executor&quot;: &quot;Run&quot;,
@@ -86,7 +105,7 @@
       <recent name="C:\Users\wojci\source\repos\repos\cropdoc-trainer\src" />
     </key>
   </component>
-  <component name="RunManager" selected="Python.eksport">
+  <component name="RunManager" selected="Python.dataset">
     <configuration name="app" type="PythonConfigurationType" factoryName="Python">
       <module name="cropdoc-trainer" />
       <option name="ENV_FILES" value="" />
@@ -251,6 +270,40 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
+    <configuration name="dataset" type="PythonConfigurationType" factoryName="Python">
+      <module name="cropdoc-trainer" />
+      <option name="ENV_FILES" value="" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="SDK_NAME" value="Python 3.11 (cropdoc-trainer)" />
+      <option name="WORKING_DIRECTORY" value="" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <EXTENSION ID="net.ashald.envfile">
+        <option name="IS_ENABLED" value="false" />
+        <option name="IS_SUBST" value="false" />
+        <option name="IS_PATH_MACRO_SUPPORTED" value="false" />
+        <option name="IS_IGNORE_MISSING_FILES" value="false" />
+        <option name="IS_ENABLE_EXPERIMENTAL_INTEGRATIONS" value="false" />
+        <ENTRIES>
+          <ENTRY IS_ENABLED="true" PARSER="runconfig" IS_EXECUTABLE="false" />
+        </ENTRIES>
+      </EXTENSION>
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/src/cm_from_preds_raw.py" />
+      <option name="PARAMETERS" value="--preds runs3\rapeseed_student\eval\preds_raw.jsonl --classes runs3\rapeseed_student\eval\classes.json" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
     <configuration name="delete" type="PythonConfigurationType" factoryName="Python">
       <module name="cropdoc-trainer" />
       <option name="ENV_FILES" value="" />
@@ -334,8 +387,8 @@
           <ENTRY IS_ENABLED="true" PARSER="runconfig" IS_EXECUTABLE="false" />
         </ENTRIES>
       </EXTENSION>
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/src/eval3.py" />
-      <option name="PARAMETERS" value="--ckpt runs3\tomato_student\best.pt   --images D:\inzynierka\Datasety_do_treningu\tomato\test_images\cls     --batch 64 --workers 0 --device cuda --vis_limit 40" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/src/eval3_tta.py" />
+      <option name="PARAMETERS" value="--ckpt runs3\potato_student\best.pt   --images D:\inzynierka\Datasety_do_treningu\potato\test_images\cls --tta    --batch 64 --workers 0 --device cuda --vis_limit 40" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
       <option name="MODULE_MODE" value="false" />
@@ -524,6 +577,7 @@
       <item itemvalue="Python.build" />
       <item itemvalue="Python.build_datasets" />
       <item itemvalue="Python.build_wheat" />
+      <item itemvalue="Python.dataset" />
       <item itemvalue="Python.delete" />
       <item itemvalue="Python.eksport" />
       <item itemvalue="Python.eval" />
@@ -614,7 +668,18 @@
       <workItem from="1765208558261" duration="8000" />
       <workItem from="1765320029171" duration="1076000" />
       <workItem from="1765326299122" duration="660000" />
-      <workItem from="1765362807429" duration="3050000" />
+      <workItem from="1765362807429" duration="4331000" />
+      <workItem from="1765377801684" duration="1092000" />
+      <workItem from="1765815363275" duration="27000" />
+      <workItem from="1765987598332" duration="206000" />
+      <workItem from="1766095192942" duration="594000" />
+      <workItem from="1766270455382" duration="14000" />
+      <workItem from="1767621968418" duration="5041000" />
+      <workItem from="1767972295916" duration="13114000" />
+      <workItem from="1768078493390" duration="11659000" />
+      <workItem from="1768198827003" duration="68000" />
+      <workItem from="1768227408665" duration="1191000" />
+      <workItem from="1769128053124" duration="4000" />
     </task>
     <task id="LOCAL-00001" summary="Add dual mod">
       <option name="closed" value="true" />
@@ -696,7 +761,15 @@
       <option name="project" value="LOCAL" />
       <updated>1764885871619</updated>
     </task>
-    <option name="localTasksCounter" value="11" />
+    <task id="LOCAL-00011" summary="small changes">
+      <option name="closed" value="true" />
+      <created>1765371821075</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1765371821075</updated>
+    </task>
+    <option name="localTasksCounter" value="12" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -723,7 +796,8 @@
     <MESSAGE value="Working with new pipeline for better result" />
     <MESSAGE value="New teacher-student pipeline and ready to use models with metrics" />
     <MESSAGE value="Remove image augmentation from all crop builders and Moved all augmentations to the training pipeline, retrained the models, and re-exported the updated weights." />
-    <option name="LAST_COMMIT_MESSAGE" value="Remove image augmentation from all crop builders and Moved all augmentations to the training pipeline, retrained the models, and re-exported the updated weights." />
+    <MESSAGE value="small changes" />
+    <option name="LAST_COMMIT_MESSAGE" value="small changes" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/cropdoc_trainer$inspect.coverage" NAME="inspect Coverage Results" MODIFIED="1760438085140" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
@@ -738,11 +812,12 @@
     <SUITE FILE_PATH="coverage/cropdoc_trainer$build.coverage" NAME="build Coverage Results" MODIFIED="1764756769811" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
     <SUITE FILE_PATH="coverage/cropdoc_trainer$build_wheat.coverage" NAME="build_wheat Coverage Results" MODIFIED="1761489153117" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
     <SUITE FILE_PATH="coverage/cropdoc_trainer$train_kd.coverage" NAME="train_kd Coverage Results" MODIFIED="1762534244760" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
+    <SUITE FILE_PATH="coverage/cropdoc_trainer$dataset.coverage" NAME="dataset Coverage Results" MODIFIED="1768170149883" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
     <SUITE FILE_PATH="coverage/cropdoc_trainer$train.coverage" NAME="train Coverage Results" MODIFIED="1759096359370" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="C:\Users\wojci\source\repos\repos\cropdoc-trainer" />
     <SUITE FILE_PATH="coverage/cropdoc_trainer$build_tomato.coverage" NAME="build tomato Coverage Results" MODIFIED="1762261539756" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
     <SUITE FILE_PATH="coverage/cropdoc_trainer$train_potato.coverage" NAME="train potato Coverage Results" MODIFIED="1764856898059" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
     <SUITE FILE_PATH="coverage/cropdoc_trainer$train_wheat.coverage" NAME="train wheat Coverage Results" MODIFIED="1761492367373" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
-    <SUITE FILE_PATH="coverage/cropdoc_trainer$eval.coverage" NAME="eval Coverage Results" MODIFIED="1764879421992" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
+    <SUITE FILE_PATH="coverage/cropdoc_trainer$eval.coverage" NAME="eval Coverage Results" MODIFIED="1768074346285" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
     <SUITE FILE_PATH="coverage/cropdoc_trainer$test_models.coverage" NAME="test models Coverage Results" MODIFIED="1760450684656" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
     <SUITE FILE_PATH="coverage/cropdoc_trainer$eksport.coverage" NAME="eksport Coverage Results" MODIFIED="1764879626755" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
     <SUITE FILE_PATH="coverage/cropdoc_trainer$train_rapeseed.coverage" NAME="train rapeseed Coverage Results" MODIFIED="1764869813578" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="C:\Users\wojci\source\repos\repos\cropdoc-trainer" />

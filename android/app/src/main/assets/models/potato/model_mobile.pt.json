@@ -1,0 +1,9 @@
+{
+  "classes": [
+    "earlyblight",
+    "healthy",
+    "lateblight"
+  ],
+  "healthy_idx": 1,
+  "img_size": 256
+}

@@ -1,0 +1,29 @@
+{
+  "classes": [
+    "Bacterial_spot227",
+    "Early_blight227",
+    "Late_blight227",
+    "Leaf_Mold227",
+    "Septoria_leaf_spot227",
+    "Target_Spot227",
+    "Tomato_Yellow_Leaf_Curl_Virus227",
+    "Tomato_mosaic_virus227",
+    "Two-spotted_spider_mite227",
+    "healthy227"
+  ],
+  "arch": "mobilenetv3_large",
+  "img_size": 380,
+  "normalization_source": "meta.json",
+  "mean": [
+    0.4372163712978363,
+    0.45330825448036194,
+    0.38851454854011536
+  ],
+  "std": [
+    0.18943996727466583,
+    0.16986078023910522,
+    0.2019394338130951
+  ],
+  "outputs": "probs",
+  "mobile_model": "model_mobile.ptl"
+}

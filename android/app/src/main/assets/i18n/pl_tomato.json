@@ -1,0 +1,26 @@
+{
+  "translation": {
+    "healthy": "zdrowa",
+    "late_blight": "zaraza późna (Phytophthora)",
+    "early_blight": "alternarioza (wczesna zaraza)",
+    "bacterial_spot": "bakteryjna plamistość liści",
+    "leaf_mold": "pleśń liści (Cladosporium)",
+    "septoria_leaf_spot": "septorioza liści",
+    "target_spot": "plamistość tarczowata",
+    "mosaic_virus": "wirus mozaiki",
+    "yellow_leaf_curl_virus": "wirus żółtej kędzierzawości liści",
+    "spider_mites": "uszkodzenia przez przędziorki"
+  },
+  "display_order": [
+    "late_blight",
+    "early_blight",
+    "bacterial_spot",
+    "leaf_mold",
+    "septoria_leaf_spot",
+    "target_spot",
+    "mosaic_virus",
+    "yellow_leaf_curl_virus",
+    "spider_mites",
+    "healthy"
+  ]
+}

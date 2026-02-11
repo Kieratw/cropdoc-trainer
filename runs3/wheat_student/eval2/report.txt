@@ -1,0 +1,13 @@
+                 precision    recall  f1-score   support
+
+        Healthy       0.86      0.86      0.86        36
+     LeafBlight       0.91      0.77      0.83        39
+           Rust       0.88      0.91      0.90       127
+  PowderyMildew       0.75      0.79      0.77        19
+FusariumFootRot       1.00      1.00      1.00        25
+     WheatBlast       1.00      1.00      1.00        14
+     BlackPoint       1.00      1.00      1.00        14
+
+       accuracy                           0.89       274
+      macro avg       0.91      0.90      0.91       274
+   weighted avg       0.90      0.89      0.89       274

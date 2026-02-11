@@ -1,0 +1,21 @@
+{
+  "classes": [
+    "earlyblt",
+    "healthy",
+    "lateblt"
+  ],
+  "class_to_idx": {
+    "earlyblt": 0,
+    "healthy": 1,
+    "lateblt": 2
+  },
+  "idx_to_class": {
+    "0": "earlyblt",
+    "1": "healthy",
+    "2": "lateblt"
+  },
+  "norm_source": "meta.json",
+  "img_size": 380,
+  "arch": "mobilenetv3_large",
+  "ckpt": "runs3\\potato_student\\best.pt"
+}

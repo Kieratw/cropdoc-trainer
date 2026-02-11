@@ -1,0 +1,12 @@
+{
+  "translation": {
+    "healthy": "zdrowa",
+    "lateblight": "zaraza ziemniaka",
+    "earlyblight": "alternarioza (sucha plamistość liści)"
+  },
+  "display_order": [
+    "lateblight",
+    "earlyblight",
+    "healthy"
+  ]
+}
